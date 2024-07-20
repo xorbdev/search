@@ -1,0 +1,49 @@
+{% import '_includes/forms.twig' as forms %}
+
+{{forms.textField({
+    first: true,
+    label: 'Custom Plugin Name'|t('search'),
+    instructions: 'Overrides the name displayed in the control panel.'|t('search'),
+    placeholder: "Search"|t('search'),
+    name: 'data[pluginName]',
+    value: item.pluginName,
+    errors: item.getErrors('pluginName'),
+})}}
+
+{{forms.textField({
+    label: 'User-Agent String'|t('search'),
+    instructions: 'The user-agent string that the search indexer will pass with each request.'|t('search'),
+    placeholder: "Craft CMS Search"|t('search'),
+    tip: 'This should be unique from standard browser User-Agent strings so that self crawls don\'t count towards hits.'|t('search'),
+    name: 'data[uaString]',
+    value: item.uaString,
+    errors: item.getErrors('uaString'),
+})}}
+
+{% if craft.search.isPro %}
+    {{forms.textField({
+        label: 'Searchable Assets Field Handle'|t('search'),
+        instructions: 'The handle of the field used to indicate if an asset is searchable or not.'|t('search'),
+        placeholder: "searchableAsset"|t('search'),
+        tip: 'Add a **Searchable** field to your asset volume with this handle to enable searchable assets.'|t('search'),
+        name: 'data[searchableAssetFieldHandle]',
+        value: item.searchableAssetFieldHandle,
+        errors: item.getErrors('searchableAssetFieldHandle'),
+    })}}
+
+    {{forms.lightswitchField({
+        label: 'Track Page Queries'|t('search'),
+        instructions: 'Track queries to see what your users are searching for to better tailor your search results with search term maps and priorities.'|t('search'),
+        name: 'data[trackQueries]',
+        on: item.trackQueries,
+        errors: item.getErrors('trackQueries'),
+    })}}
+
+    {{forms.lightswitchField({
+        label: 'Track 404 Errors'|t('search'),
+        instructions: 'Keep track of missing pages so that you can set up redirects.'|t('search'),
+        name: 'data[track404s]',
+        on: item.track404s,
+        errors: item.getErrors('track404s'),
+    })}}
+{% endif %}

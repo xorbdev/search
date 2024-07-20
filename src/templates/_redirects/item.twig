@@ -1,0 +1,98 @@
+{% set meta = craft.search.redirectsMeta %}
+
+{% extends meta.layout %}
+{% import '_includes/forms' as forms %}
+
+{% if id %}
+    {% set title = 'Edit Redirect'|t('search') %}
+    {% set pageTitle = 'Edit'|t('search') %}
+{% else %}
+    {% set title = 'New Redirect'|t('search') %}
+    {% set pageTitle = 'New'|t('search') %}
+{% endif %}
+
+{% block actionButton %}
+    <div class="buttons">
+        <div class="btngroup submit">
+            <input type="submit" class="btn submit" value="{{'Save'|t('search')}}">
+        </div>
+    </div>
+{% endblock %}
+
+{% block content %}
+    {{actionInput('search/redirects/save')}}
+    {{redirectInput(meta.url)}}
+
+    {% if id %}<input type="hidden" name="data[id]" value="{{id}}">{% endif %}
+
+    {% if item.getFirstError('general') %}
+        <div class="error">
+            <span class="visually-hidden">{{'Error:'|t('app')}}</span>
+            {{item.getFirstError('general')}}
+        </div>
+    {% endif %}
+
+    {{forms.textField({
+        first: not item.getFirstError('general'),
+        label: 'From URI'|t('search'),
+        name: 'data[fromUrl]',
+        value: item.fromUrl,
+        errors: item.getErrors('fromUrl'),
+        required: true,
+    })}}
+
+    {{forms.textField({
+        label: 'To URI'|t('search'),
+        name: 'data[toUrl]',
+        value: item.toUrl,
+        errors: item.getErrors('toUrl'),
+    })}}
+
+    {{forms.lightswitchField({
+        label: 'Regex'|t('search'),
+        instructions: 'Process **From URI** as a regular expression.'|t('search'),
+        name: 'data[regex]',
+        on: item.regex,
+        errors: item.getErrors('regex'),
+    })}}
+
+    {{forms.lightswitchField({
+        label: 'Ignore Query Params'|t('search'),
+        instructions: 'Ignore query params when testing for a match.',
+        tip: 'Any query params in the current URI will be brought over to the resulting URI unless overriden by the **To URI** field.'|t('search'),
+        name: 'data[ignoreQueryParams]',
+        on: item.ignoreQueryParams,
+        errors: item.getErrors('ignoreQueryParams'),
+    })}}
+
+    {{forms.selectField({
+        label: 'Redirect Type'|t('search'),
+        tip: 'If using **410 Gone**, you can leave **To URI** empty.'|t('search'),
+        name: 'data[type]',
+        options: craft.search.redirectTypeOptions(),
+        value: item.type,
+        errors: item.getErrors('type'),
+    })}}
+
+    {{forms.textField({
+        label: 'Priority'|t('search'),
+        instructions: 'Redirects with a higher priority will be matched against first.'|t('search'),
+        type: 'number',
+        min: 0,
+        step: 1,
+        name: 'data[priority]',
+        value: item.priority,
+        errors: item.getErrors('priority'),
+        required: true,
+    })}}
+
+    {% if craft.app.isMultisite %}
+        {{forms.selectField({
+            label: 'Site'|t('app'),
+            name: 'data[siteId]',
+            options: craft.search.siteOptions(''),
+            value: item.siteId,
+            errors: item.getErrors('siteId'),
+        })}}
+    {% endif %}
+{% endblock %}

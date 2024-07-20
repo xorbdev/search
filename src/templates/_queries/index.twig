@@ -1,0 +1,49 @@
+{% extends 'search/_layouts/queries' %}
+
+{% do view.registerAssetBundle('craft\\web\\assets\\admintable\\AdminTableAsset') -%}
+
+{% set title = 'Queries'|t('search') %}
+
+{% block toolbar %}
+    {% if craft.app.getIsMultiSite() %}
+        {% include "_elements/sitemenu" with {
+            urlFormat: cpUrl('search/queries', {site: '{handle}'}),
+        }%}
+    {% endif %}
+{% endblock %}
+
+{% block actionButton %}
+    <div class="buttons">
+        <div class="btngroup submit">
+            <input type="submit" class="btn submit" value="{{'Clear'|t('search')}}">
+        </div>
+    </div>
+{% endblock %}
+
+{% block content %}
+    {{actionInput('search/queries/clear')}}
+
+    <div id="search_index_table"></div>
+{% endblock %}
+
+{% js %}
+    var columns = [
+        {
+            name: '__slot:title',
+            title: Craft.t('search', 'Query'),
+        },
+        {
+            name: 'dateQuery',
+            title: Craft.t('search', 'Date'),
+        },
+    ];
+
+    new Craft.VueAdminTable({
+        columns: columns,
+        container: '#search_index_table',
+        deleteAction: 'search/queries/delete',
+        emptyMessage: Craft.t('search', 'No queries available.'),
+        perPage: 20,
+        tableDataEndpoint: 'search/queries/items',
+    });
+{% endjs %}

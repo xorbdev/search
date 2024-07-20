@@ -1,0 +1,49 @@
+{% import "_includes/forms" as forms %}
+
+<h2>{{ 'Update Search Index'|t('search') }}</h2>
+
+<form class="utility" method="post" accept-charset="UTF-8">
+    {{ actionInput('search/utilities/update') }}
+    {{ csrfInput() }}
+
+    <p>{{ 'Updating the search index will perform the following tasks:'|t('search') }}</p>
+    <ul class="bullets">
+        <li>{{ 'Add new known pages.'|t('search') }}</li>
+        <li>{{ 'Add new pages picked up by the hit tracker.'|t('search') }}</li>
+
+        {% if craft.search.isPro %}
+            <li>{{ 'Add newly searchable assets.'|t('search') }}</li>
+            <li>{{ 'Re-index all page and asset URIs.'|t('search') }}</li>
+        {% else %}
+            <li>{{ 'Re-index all page URIs.'|t('search') }}</li>
+        {% endif %}
+
+        <li>{{ 'Update search score of each result.'|t('search') }}</li>
+        <li>{{ 'Update search term priority cache.'|t('search') }}</li>
+    </ul>
+
+    <div class="buttons">
+        <button type="submit" class="btn submit">{{ 'Update Index'|t('search') }}</button>
+        <div class="utility-status"></div>
+    </div>
+</form>
+
+<hr>
+
+<h2>{{ 'Add URI To Index'|t('search') }}</h2>
+
+<form class="utility" method="post" accept-charset="UTF-8">
+    {{ actionInput('search/utilities/add-url') }}
+    {{ csrfInput() }}
+
+    {{ forms.textField({
+        label: "URI"|t('search'),
+        name: 'uri',
+        instructions: 'If your URI is relative, it will add it for all sites.'|t('search'),
+    }) }}
+
+    <div class="buttons">
+        <button type="submit" class="btn submit">{{ 'Add URI'|t('search') }}</button>
+        <div class="utility-status"></div>
+    </div>
+</form>

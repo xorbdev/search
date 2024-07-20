@@ -1,0 +1,16 @@
+<div class="recentsearches-container">
+    {% if items|length %}
+        <ol class="widget__list" role="list">
+            {% for item in items %}
+                <li class="widget__list-item">
+                    {{ item.query }}
+                    <span class="light">
+                        {{ item.dateQuery|timestamp('short') }}
+                    </span>
+                </li>
+            {% endfor %}
+        </ol>
+    {% else %}
+        <p class="zilch small">{{ "No searches yet."|t('search') }}</p>
+    {% endif %}
+</div>

@@ -1,0 +1,62 @@
+{% set meta = craft.search.redirectsMeta %}
+
+{% if not craft.search.hasRedirects %}
+    {% redirect meta.url ~ '/new' %}
+{% endif %}
+
+{% extends meta.layout %}
+{% do view.registerAssetBundle('craft\\web\\assets\\admintable\\AdminTableAsset') -%}
+
+{% set title = 'Redirects'|t('search') %}
+
+{% block actionButton %}
+    <a href="{{ url('search/redirects/new') }}" class="btn submit add icon">
+        {{'New Redirect'|t('search')}}
+    </a>
+{% endblock %}
+
+{% block content %}
+    <div id="search_index_table"></div>
+{% endblock %}
+
+{% set tableData = [] %}
+
+{% for item in items %}
+	{% set tableData = tableData|merge([{
+        id: item.id,
+        title: item.fromUrl,
+        toUrl: item.toUrl,
+        type: craft.search.redirectTypeOptions()[item.type],
+        priority: item.priority,
+        url: url(meta.url ~ '/' ~ item.id),
+    }]) %}
+{% endfor %}
+
+{% js %}
+    var columns = [
+        {
+            name: '__slot:title',
+            title: Craft.t('search', 'From'),
+        },
+        {
+            name: 'toUrl',
+            title: Craft.t('search', 'To'),
+        },
+        {
+            name: 'type',
+            title: Craft.t('search', 'Type'),
+        },
+        {
+            name: 'priority',
+            title: Craft.t('search', 'Priority'),
+        },
+    ];
+
+    new Craft.VueAdminTable({
+        columns: columns,
+        container: '#search_index_table',
+        deleteAction: 'search/redirect/delete',
+        emptyMessage: Craft.t('search', 'No redirect available.'),
+        tableData: {{tableData|json_encode|raw}},
+    });
+{% endjs %}

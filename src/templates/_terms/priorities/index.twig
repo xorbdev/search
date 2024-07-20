@@ -1,0 +1,62 @@
+{% set meta = craft.search.termPrioritiesMeta %}
+
+{% if not craft.search.hasTermPriorities %}
+    {% redirect meta.url ~ '/new' %}
+{% endif %}
+
+{% extends meta.layout %}
+{% do view.registerAssetBundle('craft\\web\\assets\\admintable\\AdminTableAsset') -%}
+
+{% set title = 'Search Term Priorities'|t('search') %}
+
+{% block actionButton %}
+    <a href="{{ url(meta.url ~ '/new') }}" class="btn submit add icon">
+        {{'New Priority'|t('search')}}
+    </a>
+{% endblock %}
+
+{% block content %}
+    <div id="search_index_table"></div>
+{% endblock %}
+
+{% set tableData = [] %}
+
+{% for item in items %}
+	{% set tableData = tableData|merge([{
+        id: item.id,
+        title: item.term,
+        searchPriority: item.searchPriority,
+        resultUrlValue: item.resultUrlValue,
+        resultUrlComparator: craft.search.comparatorOptions[item.resultUrlComparator],
+        url: url(meta.url ~ '/' ~ item.id),
+    }]) %}
+{% endfor %}
+
+{% js %}
+    var columns = [
+        {
+            name: '__slot:title',
+            title: Craft.t('search', 'Search Term'),
+        },
+        {
+            name: 'resultUrlValue',
+            title: Craft.t('search', 'URI Value'),
+        },
+        {
+            name: 'resultUrlComparator',
+            title: Craft.t('search', 'URI Comparator'),
+        },
+        {
+            name: 'searchPriority',
+            title: Craft.t('search', 'Priority'),
+        },
+    ];
+
+    new Craft.VueAdminTable({
+        columns: columns,
+        container: '#search_index_table',
+        deleteAction: 'search/term-priorities/delete',
+        emptyMessage: Craft.t('search', 'No search term priorities available.'),
+        tableData: {{tableData|json_encode|raw}},
+    });
+{% endjs %}

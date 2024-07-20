@@ -1,0 +1,84 @@
+{% import '_includes/forms.twig' as forms %}
+
+{{forms.lightswitchField({
+    first: true,
+    label: 'Enable Sitemap'|t('search'),
+    instructions: 'When enabled, a sitemap will be generated from any indexed pages.'|t('search'),
+    name: 'data[enableSitemap]',
+    on: item.enableSitemap,
+    errors: item.getErrors('enableSitemap'),
+})}}
+
+{% set currentSitemapName = item.sitemapName ?? 'sitemap' %}
+
+{{forms.textField({
+    label: 'Sitemap Name'|t('search'),
+    instructions: 'The name of the sitemap file. It can currently be found at: <a href="' ~ siteUrl ~ currentSitemapName ~ '.xml">' ~ siteUrl ~ currentSitemapName ~ '.xml</a>.'|t('search'),
+    placeholder: "sitemap"|t('search'),
+    name: 'data[sitemapName]',
+    value: item.sitemapName,
+    errors: item.getErrors('sitemapName'),
+})}}
+
+{{forms.textField({
+    label: 'URL Set Limit'|t('search'),
+    type: 'number',
+    min: 0,
+    step: 100,
+    instructions: 'The maximum number of URLs in a URL set. Set to zero for no limit.'|t('search'),
+    name: 'data[sitemapUrlLimit]',
+    value: item.sitemapUrlLimit,
+    errors: item.getErrors('sitemapUrlLimit'),
+})}}
+
+{{forms.lightswitchField({
+    label: 'Include Assets'|t('search'),
+    instructions: 'When enabled, the sitemap will include URIs to indexed assets.'|t('search'),
+    name: 'data[sitemapIncludeAssets]',
+    on: item.sitemapIncludeAssets,
+    errors: item.getErrors('sitemapIncludeAssets'),
+})}}
+
+{{forms.lightswitchField({
+    label: 'Obey Ignore Rules'|t('search'),
+    instructions: 'When enabled, URIs that are set to not appear in search results, will also not appear in the sitemap.'|t('search'),
+    name: 'data[sitemapIgnoreRules]',
+    on: item.sitemapIgnoreRules,
+    errors: item.getErrors('sitemapIgnoreRules'),
+})}}
+
+<h2>{{'New URIs'|t('search')}}</h2>
+
+<p>{{'These settings determine the default sitemap behaviour of newly indexed URIs.'|t('search')|raw}}</p>
+
+{{forms.selectField({
+    label: 'Priority'|t('search'),
+    name: "data[sitemapDefaultPriority]",
+    options: craft.search.sitemapPriorityOptions,
+    value: item.sitemapDefaultPriority,
+    errors: item.getErrors('sitemapDefaultPriority'),
+})}}
+
+{{forms.selectField({
+    label: 'Change Frequency'|t('search'),
+    name: "data[sitemapDefaultChangefreq]",
+    options: craft.search.sitemapChangefreqOptions,
+    value: item.sitemapDefaultChangefreq,
+    errors: item.getErrors('sitemapDefaultChangefreq'),
+})}}
+
+{{forms.lightswitchField({
+    label: 'Ignore New Pages'|t('search'),
+    instructions: 'When enabled, newly indexed pages will not be added to the sitemap.'|t('search'),
+    name: 'data[sitemapIgnoreNewPageUrls]',
+    on: item.sitemapIgnoreNewPageUrls,
+    errors: item.getErrors('sitemapIgnoreNewPageUrls'),
+})}}
+
+{{forms.lightswitchField({
+    label: 'Ignore New Assets'|t('search'),
+    instructions: 'When enabled, newly indexed assets will not be added to the sitemap.'|t('search'),
+    name: 'data[sitemapIgnoreNewAssetUrls]',
+    on: item.sitemapIgnoreNewAssetUrls,
+    errors: item.getErrors('sitemapIgnoreNewAssetUrls'),
+})}}

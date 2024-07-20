@@ -1,0 +1,15 @@
+{% extends '_layouts/cp' %}
+
+{% set fullPageForm = true %}
+
+{% set selectedSubnavItem = 'queries' %}
+
+{% set crumbs = [
+    { label: craft.search.name, url: url('search') },
+] %}
+
+{% if pageTitle ?? false %}
+    {% set docTitle = pageTitle ~ ' - ' ~ 'Queries'|t('search') ~ ' - ' ~ 'Search'|t('search') %}
+{% else %}
+    {% set docTitle = 'Queries'|t('search') ~ ' - ' ~ 'Search'|t('search') %}
+{% endif %}

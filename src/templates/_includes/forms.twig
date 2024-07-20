@@ -1,0 +1,63 @@
+{% macro urlComparatorField(config) %}
+    {% embed '_includes/forms/field' with config %}
+        {% block input %}
+            {% import '_includes/forms' as forms %}
+            <div class="flex flex-nowrap">
+                <div class="flex-grow">
+                    {{forms.text({
+                        class: 'ltr',
+                        name: "data[#{config.name}Value]",
+                        value: config.value,
+                        placeholder: config.placeholder ?? '',
+                        describedBy: describedBy,
+                    })}}
+                </div>
+                <div>
+                    {{forms.select({
+                        name: "data[#{config.name}Comparator]",
+                        options: craft.search.comparatorOptions,
+                        value: config.comparator,
+                        describedBy: describedBy,
+                    })}}
+                </div>
+            </div>
+        {% endblock %}
+    {% endembed %}
+{% endmacro %}
+
+{% macro queryParamComparatorField(config) %}
+    {% embed '_includes/forms/field' with config %}
+        {% block input %}
+            {% import '_includes/forms' as forms %}
+            <div class="flex flex-nowrap">
+                <div class="flex-grow">
+                    {{forms.text({
+                        class: 'ltr',
+                        name: "data[#{config.name}Key]",
+                        value: config.key,
+                        placeholder: 'key'|t('search'),
+                        describedBy: describedBy,
+                    })}}
+                </div>
+                =
+                <div class="flex-grow">
+                    {{forms.text({
+                        class: 'ltr',
+                        name: "data[#{config.name}Value]",
+                        value: config.value,
+                        placeholder: config.placeholder ?? 'value'|t('search'),
+                        describedBy: describedBy,
+                    })}}
+                </div>
+                <div>
+                    {{forms.select({
+                        name: "data[#{config.name}Comparator]",
+                        options: craft.search.comparatorOptions,
+                        value: config.comparator,
+                        describedBy: describedBy,
+                    })}}
+                </div>
+            </div>
+        {% endblock %}
+    {% endembed %}
+{% endmacro %}

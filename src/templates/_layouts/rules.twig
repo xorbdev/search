@@ -1,0 +1,50 @@
+{% extends '_layouts/cp' %}
+
+{% set fullPageForm = true %}
+
+{% set selectedSubnavItem = 'rules' %}
+
+{% set navItems = craft.search.rulesNavItems %}
+
+{% if navItems|length > 1 %}
+    {% set selectedItem = craft.app.request.getSegment(3)|default %}
+
+    {% set crumbs = [
+        { label: craft.search.name, url: url('search') },
+        { label: 'Rules'|t('search'), url: url('search/rules') },
+    ] %}
+{% else %}
+    {% set selectedItem = craft.app.request.getSegment(2)|default %}
+
+    {% set crumbs = [
+        { label: craft.search.name, url: url('search') },
+    ] %}
+{% endif %}
+
+{% if pageTitle ?? false %}
+    {% set docTitle = pageTitle ~ ' - ' ~ navItems[selectedItem].title ~ ' - ' ~ 'Search'|t('search') %}
+{% else %}
+    {% set docTitle = navItems[selectedItem].title ~ ' - ' ~ 'Search'|t('search') %}
+{% endif %}
+
+{% block sidebar %}
+    {% if navItems|length > 1 %}
+        <nav>
+            <ul>
+                {% for id, item in navItems %}
+                    {% if item.heading is defined %}
+                        <li class="heading"><span>{{ item.heading }}</span></li>
+                    {% else %}
+                        <li{% if item.id is defined %} id="{{item.id}}"{% endif %}>
+                            <a href="{{url('search/rules/' ~ id)}}"
+                                {% if id == selectedItem %} class="sel"{% endif %}
+                            >
+                                {{item.title}}
+                            </a>
+                        </li>
+                    {% endif %}
+                {% endfor %}
+            </ul>
+        </nav>
+    {% endif %}
+{% endblock %}

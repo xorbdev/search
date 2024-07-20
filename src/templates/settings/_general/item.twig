@@ -1,0 +1,60 @@
+{% extends 'search/_layouts/settings' %}
+
+{% set title = 'General Settings'|t('search') %}
+
+{% set tabs = [
+    {
+        label: 'General'|t('search'),
+        url: '#settings-general-general',
+        class: item.hasGeneralErrors() ? 'error' : null,
+    },
+    {
+        label: 'Features'|t('search'),
+        url: '#settings-general-features',
+        class: item.hasFeaturesErrors() ? 'error' : null,
+    },
+    {
+        label: 'Indexing'|t('search'),
+        url: '#settings-general-indexing',
+        class: item.hasIndexingErrors() ? 'error' : null,
+    },
+] %}
+
+{% if craft.search.isPro %}
+    {% set tabs = tabs|merge([{
+        label: 'Sitemap'|t('search'),
+        url: '#settings-general-sitemap',
+        class: item.hasSitemapErrors() ? 'error' : null,
+    }]) %}
+{% endif %}
+
+{% block actionButton %}
+    <div class="buttons">
+        <div class="btngroup submit">
+            <input type="submit" class="btn submit" value="{{ 'Save'|t('search') }}">
+        </div>
+    </div>
+{% endblock %}
+
+{% block content %}
+    {{ actionInput('search/settings/save') }}
+    {{ redirectInput('search/settings/general') }}
+
+	<div id="settings-general-general">
+		{% include 'search/settings/_general/item-general' %}
+	</div>
+
+	<div id="settings-general-features" class="hidden">
+		{% include 'search/settings/_general/item-features' %}
+	</div>
+
+	<div id="settings-general-indexing" class="hidden">
+		{% include 'search/settings/_general/item-indexing' %}
+	</div>
+
+    {% if craft.search.isPro %}
+        <div id="settings-general-sitemap" class="hidden">
+            {% include 'search/settings/_general/item-sitemap' %}
+        </div>
+    {% endif %}
+{% endblock %}

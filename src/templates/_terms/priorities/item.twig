@@ -1,0 +1,77 @@
+{% set meta = craft.search.termPrioritiesMeta %}
+
+{% extends meta.layout %}
+{% import '_includes/forms' as forms %}
+{% import 'search/_includes/forms' as searchForms %}
+
+{% if id %}
+    {% set title = 'Edit Search Term Priority'|t('search') %}
+    {% set pageTitle = 'Edit'|t('search') %}
+{% else %}
+    {% set title = 'New Search Term Priority'|t('search') %}
+    {% set pageTitle = 'New'|t('search') %}
+{% endif %}
+
+{% block actionButton %}
+    <div class="buttons">
+        <div class="btngroup submit">
+            <input type="submit" class="btn submit" value="{{'Save'|t('search')}}">
+        </div>
+    </div>
+{% endblock %}
+
+{% block content %}
+    {{actionInput('search/term-priorities/save')}}
+    {{redirectInput(meta.url)}}
+
+    {% if id %}<input type="hidden" name="data[id]" value="{{id}}">{% endif %}
+
+    {% if item.getFirstError('general') %}
+        <div class="error">
+            <span class="visually-hidden">{{'Error:'|t('app')}}</span>
+            {{item.getFirstError('general')}}
+        </div>
+    {% endif %}
+
+    {{forms.textField({
+        first: not item.getFirstError('general'),
+        label: 'Search Term'|t('search'),
+        name: 'data[term]',
+        value: item.term,
+        errors: item.getErrors('term'),
+        required: true,
+    })}}
+
+    {{searchForms.urlComparatorField({
+        label: 'Result URI'|t('search'),
+        instructions: 'Set the search order priority of pages that match this URI comparison.'|t('search'),
+        tip: 'Query param values will always compare using exact match. Leave query param values empty to ensure not set. Any query params not specified will be ignored.'|t('search'),
+        placeholder: '/page/path'|t('search'),
+        name: 'resultUrl',
+        comparator: item.resultUrlComparator,
+        value: item.resultUrlValue,
+        errors: item.getErrors('resultUrlValue'),
+        required: true,
+    })}}
+
+    {{forms.textField({
+        label: 'Search Priority'|t('search'),
+        type: 'number',
+        min: 0,
+        step: 1,
+        name: 'data[searchPriority]',
+        value: item.searchPriority,
+        errors: item.getErrors('searchPriority'),
+        required: true,
+    })}}
+
+    {% if craft.app.isMultisite %}
+        {{forms.selectField({
+            label: 'Site'|t('app'),
+            name: 'data[siteId]',
+            options: craft.search.siteOptions(''),
+            value: item.siteId,
+            errors: item.getErrors('siteId'),
+        })}}
+    {% endif %}
+{% endblock %}

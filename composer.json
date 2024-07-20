@@ -1,0 +1,57 @@
+{
+  "name": "xorb/search",
+  "description": "Index pages and PDF files and provide search results for your website.",
+  "type": "craft-plugin",
+  "keywords": [
+      "craft",
+      "cms",
+      "craftcms",
+      "craft-plugin",
+      "search"
+  ],
+  "license": "proprietary",
+  "authors": [
+    {
+      "name": "XORB",
+      "homepage": "https://xorb.dev"
+    }
+  ],
+  "support": {
+    "issues": "https://github.com/xorb-dev/search/issues",
+    "source": "https://github.com/xorb-dev/search",
+    "docs": "https://xorb.dev/plugins/search/docs"
+  },
+  "minimum-stability": "dev",
+  "prefer-stable": true,
+  "require": {
+    "php": "^8.2",
+    "craftcms/cms": "^5.0.0",
+    "smalot/pdfparser": "^2.8"
+  },
+  "require-dev": {
+    "phpstan/phpstan": "^1.10",
+    "craftcms/phpstan": "dev-main",
+    "craftcms/rector": "dev-main",
+    "phpunit/phpunit": "^11.1"
+  },
+  "autoload": {
+    "psr-4": {
+      "xorb\\search\\": "src/"
+    }
+  },
+  "extra": {
+    "handle": "search",
+    "name": "Search",
+    "developer": "XORB"
+  },
+  "scripts": {
+    "phpstan": "phpstan --memory-limit=4G",
+    "phpunit": "phpunit"
+  },
+  "config": {
+    "allow-plugins": {
+      "yiisoft/yii2-composer": true,
+      "craftcms/plugin-installer": true
+    }
+  }
+}

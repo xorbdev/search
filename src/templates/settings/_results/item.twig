@@ -1,0 +1,16 @@
+{% extends "search/_layouts/settings" %}
+
+{% set title = 'Result Fields'|t('search') %}
+
+{% import "_includes/forms" as forms %}
+
+{% block content %}
+    <h2>{{ "Result Fields"|t('search') }}</h2>
+
+    {{ actionInput('search/result-settings/save') }}
+    {{ redirectInput('search/settings/results') }}
+
+    {{ forms.fieldLayoutDesignerField({
+        fieldLayout: fieldLayout,
+    }) }}
+{% endblock %}

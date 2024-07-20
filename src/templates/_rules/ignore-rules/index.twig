@@ -1,0 +1,62 @@
+{% set meta = craft.search.ignoreRulesMeta %}
+
+{% if not craft.search.hasIgnoreRules %}
+    {% redirect meta.url ~ '/new' %}
+{% endif %}
+
+{% extends meta.layout %}
+{% do view.registerAssetBundle('craft\\web\\assets\\admintable\\AdminTableAsset') -%}
+
+{% set title = 'Ignore Rules'|t('search') %}
+
+{% block actionButton %}
+    <a href="{{ url(meta.url ~ '/new') }}" class="btn submit add icon">
+        {{'New Rule'|t('search')}}
+    </a>
+{% endblock %}
+
+{% block content %}
+    <div id="search_index_table"></div>
+{% endblock %}
+
+{% set tableData = [] %}
+
+{% for item in items %}
+	{% set tableData = tableData|merge([{
+        id: item.id,
+        title: item.name,
+        resultUrlValue: item.resultUrlValue,
+        resultUrlComparator: craft.search.comparatorOptions()[item.resultUrlComparator],
+        absolute: '<span class="status ' ~ (item.absolute  ? 'live' : 'disabled') ~ '"></span>' ~ (item.absolute ? 'Yes'|t('app') : 'No'|t('app')),
+        url: url(meta.url ~ '/' ~ item.id),
+    }]) %}
+{% endfor %}
+
+{% js %}
+    var columns = [
+        {
+            name: '__slot:title',
+            title: Craft.t('app', 'Name'),
+        },
+        {
+            name: 'resultUrlValue',
+            title: Craft.t('search', 'URI Value')
+        },
+        {
+            name: 'resultUrlComparator',
+            title: Craft.t('search', 'URI Comparator')
+        },
+        {
+            name: 'absolute',
+            title: Craft.t('search', 'Ignore Absolutely')
+        },
+    ];
+
+    new Craft.VueAdminTable({
+        columns: columns,
+        container: '#search_index_table',
+        deleteAction: 'search/ignore-rules/delete',
+        emptyMessage: Craft.t('search', 'No ignore rules available.'),
+        tableData: {{tableData|json_encode|raw}},
+    });
+{% endjs %}
