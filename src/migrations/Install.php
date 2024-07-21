@@ -70,7 +70,7 @@ class Install extends Migration
                     'resultHash' => $this->string(32)->defaultValue(null),
                     'mainHash' => $this->string(32)->defaultValue(null),
                     'mainData' => $this->longText()->defaultValue(null),
-                    'mainData_vector' => $this->db->getSchema()->createColumnSchemaBuilder('tsvector')->notNull(),
+                    'mainData_vector' => $this->db->getSchema()->createColumnSchemaBuilder('tsvector')->defaultValue(null),
                     'score' => $this->integer()->notNull()->defaultValue(0),
                     'searchPriority' => $this->integer()->notNull()->defaultValue(0),
                     'searchIgnore' => $this->boolean()->notNull()->defaultValue(false),
