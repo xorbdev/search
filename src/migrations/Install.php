@@ -64,7 +64,7 @@ class Install extends Migration
                     'id' => $this->primaryKey(),
                     'resultType' => $this->enum('resultType', ['page', 'asset'])->notNull(),
                     'resultId' => $this->integer()->defaultValue(null),
-                    'resultTitle' => $this->string(250)->notNull(),
+                    'resultTitle' => $this->string(250)->defaultValue(null),
                     'resultUrl' => $this->string(250)->notNull(),
                     'resultDescription' => $this->text()->defaultValue(null),
                     'resultHash' => $this->string(32)->defaultValue(null),
@@ -74,14 +74,14 @@ class Install extends Migration
                     'score' => $this->integer()->notNull()->defaultValue(0),
                     'searchPriority' => $this->integer()->notNull()->defaultValue(0),
                     'searchIgnore' => $this->boolean()->notNull()->defaultValue(false),
-                    'sitemapPriority' => $this->integer()->notNull()->defaultValue(0),
+                    'sitemapPriority' => $this->integer()->notNull()->defaultValue(50),
                     'sitemapChangefreq' => $this->enum(
                             'sitemapChangefreq',
                             [
                                 'always', 'hourly', 'daily', 'weekly', 'monthly',
                                 'yearly', 'never',
                             ]
-                        )->notNull()->defaultValue('never'),
+                        )->notNull()->defaultValue('weekly'),
                     'sitemapIgnore' => $this->boolean()->notNull()->defaultValue(false),
                     'rulesIgnore' => $this->boolean()->notNull()->defaultValue(false),
                     'error' => $this->boolean()->notNull()->defaultValue(false),
