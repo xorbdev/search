@@ -365,14 +365,6 @@ class ResultQuery extends ElementQuery
         return parent::beforePrepare();
     }
 
-    protected function afterPrepare(): bool
-    {
-        // echo "\n\n<br><br>" . $this->query->createCommand()->getRawSql() . "\n\n<br><br>";
-        // echo "\n\n<br><br>" . $this->subQuery->createCommand()->getRawSql() . "\n\n<br><br>";
-        // exit;
-        return parent::afterPrepare();
-    }
-
     protected function applySearchQuery(string $searchQuery): bool
     {
         $searchQuery = new SearchQuery($searchQuery);
