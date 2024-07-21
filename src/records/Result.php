@@ -15,6 +15,7 @@ use xorb\search\db\Table;
  * @property ?string $resultHash
  * @property ?string $mainHash
  * @property ?string $mainData
+ * @property ?string $mainData_vector
  * @property int $score
  * @property int $searchPriority
  * @property bool $searchIgnore

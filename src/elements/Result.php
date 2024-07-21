@@ -646,6 +646,9 @@ class Result extends Element
         $record->resultHash = $this->resultHash;
         $record->mainHash = $this->mainHash;
         $record->mainData = $this->mainData;
+        if (Craft::$app->getDb()->getIsPgsql()) {
+            $record->mainData_vector = $this->mainData;
+        }
         $record->score = $this->score;
         $record->searchPriority = $this->searchPriority;
         $record->searchIgnore = $this->searchIgnore;
