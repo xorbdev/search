@@ -135,6 +135,10 @@ class HtmlPage
 
     public function getMain(): ?string
     {
+        if ($this->main === null) {
+            return null;
+        }
+
         $main = $this->cleanData($this->main);
 
         return SearchHelper::normalizeKeywords(
@@ -143,7 +147,6 @@ class HtmlPage
             processCharMap: true,
             language: $this->site?->language
         );
-
     }
 
     protected function cleanData(string $html): string
