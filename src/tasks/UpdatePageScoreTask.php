@@ -77,16 +77,16 @@ class UpdatePageScoreTask extends BaseTask
 
         $query = (new Query())
             ->select([
-                Table::RESULTS . '.id',
-                Table::RESULTS . '.resultUrl',
+                Table::RESULTS . '.[[id]]',
+                Table::RESULTS . '.[[resultUrl]]',
             ])
             ->from(Table::RESULTS)
             ->innerJoin(
                 CraftTable::ELEMENTS_SITES,
-                Table::RESULTS . '.id = ' . CraftTable::ELEMENTS_SITES . '.elementId'
+                Table::RESULTS . '.[[id]] = ' . CraftTable::ELEMENTS_SITES . '.[[elementId]]'
             )
-            ->where([CraftTable::ELEMENTS_SITES . '.siteId' => $siteId])
-            ->andWhere([Table::RESULTS. '.resultType' => 'page']);
+            ->where([CraftTable::ELEMENTS_SITES . '.[[siteId]]' => $siteId])
+            ->andWhere([Table::RESULTS. '.[[resultType]]' => 'page']);
 
         $batch = $query->batch(500);
 
