@@ -248,7 +248,8 @@ class PageResult
         );
 
         $resultElement->resultTitle = $htmlPage->getMetaTitle() ??
-            $htmlPage->getTitle();
+            $htmlPage->getTitle() ??
+            Plugin::t('Untitled');
 
         $resultElement->resultDescription = $htmlPage->getMetaDescription() ??
             $htmlPage->getDescription();
