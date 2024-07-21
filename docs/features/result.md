@@ -4,7 +4,7 @@ The `Title`, `URI`, and `Description` fields of a result are read only and are
 filled in automatically when updating the index. If you wish to override these,
 add a custom field for use in your search results template.
 
-<img src="/content/result.png" alt="Result interface">
+<img src="https://xorb.dev/content/result.png" alt="Result interface">
 
 ## Search Enabled
 
@@ -32,4 +32,4 @@ search results, we have switched off the rules and search toggles.
 
 You can add custom fields to your results.
 
-<img src="/content/result-fields.png" alt="Result interface">
+<img src="https://xorb.dev/content/result-fields.png" alt="Result interface">

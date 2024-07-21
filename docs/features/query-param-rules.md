@@ -9,7 +9,7 @@ on specific URIs into account.
 
 The below example shows how you would setup query param rules for pagination.
 
-<img src="/content/add-query-param-rule.png" alt="Add query param rule interface">
+<img src="https://xorb.dev/content/add-query-param-rule.png" alt="Add query param rule interface">
 
 !!!info You will need to update your search index before any changes to your
 ignore rules take effect. !!!

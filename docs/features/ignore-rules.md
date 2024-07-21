@@ -6,7 +6,7 @@ Let's say your site includes a calendar system that allows you to navigate
 infinitely into the past or future. It would not be very desirable to index all
 those pages.
 
-<img src="/content/add-ignore-rule.png" alt="Add ignore rule interface">
+<img src="https://xorb.dev/content/add-ignore-rule.png" alt="Add ignore rule interface">
 
 ## Regular Expressions
 
@@ -16,7 +16,7 @@ expressions to target dynamic URIs.
 
 The below example would ignore the URI `/calendar/2024-04`.
 
-<img src="/content/add-ignore-rule-regex.png" alt="Add ignore rule interface using regular expressions">
+<img src="https://xorb.dev/content/add-ignore-rule-regex.png" alt="Add ignore rule interface using regular expressions">
 
 !!!info Redirects support [PCRE Pattern Syntax](https://www.php.net/manual/en/reference.pcre.pattern.syntax.php).
 By default any `/` and `?` not inside parenthesis will be escaped. To prevent

@@ -6,7 +6,7 @@ code.
 
 Using this information you can easily set up redirects.
 
-<img src="/content/add-redirect.png" alt="Add redirect interface">
+<img src="https://xorb.dev/content/add-redirect.png" alt="Add redirect interface">
 
 ## Regular Expressions
 
@@ -26,9 +26,9 @@ exists.
 In order to track 404 errors on pages that are not indexed, you will need to
 enable the `Track Page Hits` and `Track 404 Errors` settings.
 
-<img src="/content/track-page-hits.png" alt="Track page hits setting">
+<img src="https://xorb.dev/content/track-page-hits.png" alt="Track page hits setting">
 
-<img src="/content/track-404-errors.png" alt="Track 404 errors setting">
+<img src="https://xorb.dev/content/track-404-errors.png" alt="Track 404 errors setting">
 
 With these two settings enabled, any page that a user landed on that resulted
 in a 404 will be added to the result index with an error status.
