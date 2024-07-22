@@ -29,8 +29,6 @@ class AddKnownPagesTask extends BaseTask
     {
         $this->elementIds = [];
 
-        Db::delete('{{%elements}}', ['type' => ResultElement::class]);
-
         $this->addSectionUrls($siteId);
         $this->addCategoryUrls($siteId);
         $this->addProductUrls($siteId);

@@ -254,10 +254,6 @@ class Result extends Element
 
     public function getStatus(): ?string
     {
-        /* $status = parent::getStatus();
-
-        if ($status == self::STATUS_ENABLED) {
-        } */
         if ($this->error) {
             return self::STATUS_ERROR;
         }
