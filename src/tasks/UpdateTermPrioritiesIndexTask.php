@@ -22,7 +22,7 @@ class UpdateTermPrioritiesIndexTask extends BaseTask
         // Delete existing index items for this site
         Craft::$app->getDb()
             ->createCommand()
-            ->delete(Table::TERM_PRIORITIES, ['siteId' => $siteId])
+            ->delete(Table::TERM_PRIORITIES_INDEX, ['siteId' => $siteId])
             ->execute();
 
         $where = [
