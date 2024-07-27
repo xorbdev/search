@@ -103,7 +103,7 @@ class Plugin extends \craft\base\Plugin
     public const EDITION_LITE = 'lite';
     public const EDITION_PRO = 'pro';
 
-    public bool $hasCpSection = true;
+    public bool $hasCpSection = false;
     public bool $hasCpSettings = true;
 
     public function init()
@@ -120,8 +120,6 @@ class Plugin extends \craft\base\Plugin
 
         $this->initServices();
 
-        $this->hasCpSection = $this->hasCpNavItem();
-
         if (Craft::$app->getRequest()->getIsSiteRequest()) {
             $this->getHits()->trackHit();
         }
@@ -132,6 +130,11 @@ class Plugin extends \craft\base\Plugin
         }
 
         $this->registerPermissions();
+
+        // Delay until after init so can check permissions without error
+        Craft::$app->onInit(function() {
+            $this->hasCpSection = $this->hasCpNavItem();
+        });
     }
 
     public static function editions(): array
