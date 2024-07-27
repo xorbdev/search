@@ -1,9 +1,10 @@
 # Change Log
 
-## 1.0.1 - 2024-07-21
+## 1.0.1 - 2024-07-27
 
 ### Fixed
 
+- Removed leftover debug code.
 - Fixed multiple issues relating to PostgreSQL.
 - Fixed issue with searchable field always being on.
 
