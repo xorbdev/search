@@ -221,13 +221,13 @@ class QueryParamRules extends Component
         $data['resultUrlValue'] = trim($data['resultUrlValue'] ?? '');
         $data['resultUrlComparator'] = trim($data['resultUrlComparator'] ?? '');
 
-        $data['queryParamKey'] = trim($data['queryParamKey'] ?? '')
+        $data['queryParamKey'] = trim($data['queryParamKey'] ?? '');
         $data['queryParamKey'] = ($data['queryParamKey'] !== '' ? $data['queryParamKey'] : null);
 
-        $data['queryParamValue'] = trim($data['queryParamValue'] ?? '')
+        $data['queryParamValue'] = trim($data['queryParamValue'] ?? '');
         $data['queryParamValue'] = ($data['queryParamValue'] !== '' ? $data['queryParamValue'] : null);
 
-        $data['queryParamComparator'] = trim($data['queryParamComparator'] ?? '')
+        $data['queryParamComparator'] = trim($data['queryParamComparator'] ?? '');
         $data['queryParamComparator'] = ($data['queryParamComparator'] !== '' ? $data['queryParamComparator'] : null);
 
         /* if ($data['queryParamKey'] === null || $data['queryParamValue'] === null) {
