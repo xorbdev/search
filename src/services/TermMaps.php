@@ -214,8 +214,8 @@ class TermMaps extends Component
         $data['siteId'] = intval($data['siteId'] ?? 0);
         $data['siteId'] = ($data['siteId'] ? $data['siteId'] : null);
 
-        $data['term'] = $data['term'] ?? '';
-        $data['alternate'] = $data['alternate'] ?? '';
+        $data['term'] = trim($data['term'] ?? '');
+        $data['alternate'] = trim($data['alternate'] ?? '');
 
         $normalized = false;
 

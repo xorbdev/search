@@ -215,10 +215,10 @@ class TermPriorities extends Component
         $data['siteId'] = intval($data['siteId'] ?? 0);
         $data['siteId'] = ($data['siteId'] ?: null);
 
-        $data['term'] = $data['term'] ?? '';
+        $data['term'] = trim($data['term'] ?? '');
 
-        $data['resultUrlValue'] = $data['resultUrlValue'] ?? '';
-        $data['resultUrlComparator'] = $data['resultUrlComparator'] ?? '';
+        $data['resultUrlValue'] = trim($data['resultUrlValue'] ?? '');
+        $data['resultUrlComparator'] = trim($data['resultUrlComparator'] ?? '');
 
         $language = PluginHelper::getSiteLanguage($data['siteId']);
 

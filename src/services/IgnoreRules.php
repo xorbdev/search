@@ -210,10 +210,10 @@ class IgnoreRules extends Component
         $data['siteId'] = intval($data['siteId'] ?? 0);
         $data['siteId'] = ($data['siteId'] ?: null);
 
-        $data['name'] = $data['name'] ?? '';
+        $data['name'] = trim($data['name'] ?? '');
 
-        $data['resultUrlValue'] = $data['resultUrlValue'] ?? '';
-        $data['resultUrlComparator'] = $data['resultUrlComparator'] ?? '';
+        $data['resultUrlValue'] = trim($data['resultUrlValue'] ?? '');
+        $data['resultUrlComparator'] = trim($data['resultUrlComparator'] ?? '');
 
         $data['absolute'] = (($data['absolute'] ?? false) ? true : false);
 

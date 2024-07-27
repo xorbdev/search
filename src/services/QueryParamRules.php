@@ -216,14 +216,19 @@ class QueryParamRules extends Component
         $data['siteId'] = intval($data['siteId'] ?? 0);
         $data['siteId'] = ($data['siteId'] ?: null);
 
-        $data['name'] = $data['name'] ?? '';
+        $data['name'] = trim($data['name'] ?? '');
 
-        $data['resultUrlValue'] = $data['resultUrlValue'] ?? '';
-        $data['resultUrlComparator'] = $data['resultUrlComparator'] ?? '';
+        $data['resultUrlValue'] = trim($data['resultUrlValue'] ?? '');
+        $data['resultUrlComparator'] = trim($data['resultUrlComparator'] ?? '');
 
-        $data['queryParamKey'] = (($data['queryParamKey'] ?? '') !== '' ? $data['queryParamKey'] : null);
-        $data['queryParamValue'] = (($data['queryParamValue'] ?? '') !== '' ? $data['queryParamValue'] : null);
-        $data['queryParamComparator'] = (($data['queryParamComparator'] ?? '') !== '' ? $data['queryParamComparator'] : null);
+        $data['queryParamKey'] = trim($data['queryParamKey'] ?? '')
+        $data['queryParamKey'] = ($data['queryParamKey'] !== '' ? $data['queryParamKey'] : null);
+
+        $data['queryParamValue'] = trim($data['queryParamValue'] ?? '')
+        $data['queryParamValue'] = ($data['queryParamValue'] !== '' ? $data['queryParamValue'] : null);
+
+        $data['queryParamComparator'] = trim($data['queryParamComparator'] ?? '')
+        $data['queryParamComparator'] = ($data['queryParamComparator'] !== '' ? $data['queryParamComparator'] : null);
 
         /* if ($data['queryParamKey'] === null || $data['queryParamValue'] === null) {
             $data['queryParamKey'] = null;

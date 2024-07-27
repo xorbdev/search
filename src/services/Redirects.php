@@ -222,9 +222,14 @@ class Redirects extends Component
         $data['siteId'] = intval($data['siteId'] ?? 0);
         $data['siteId'] = ($data['siteId'] ?: null);
 
-        $data['fromUrl'] = $data['fromUrl'] ?? '';
-        $data['toUrl'] = (($data['toUrl'] ?? '') !== '' ? $data['toUrl'] : null);
-        $data['type'] = (($data['type'] ?? '') !== '' ? $data['type'] : 301);
+        $data['fromUrl'] = trim($data['fromUrl'] ?? '');
+
+        $data['toUrl'] = trim($data['toUrl'] ?? '');
+        $data['toUrl'] = ($data['toUrl'] !== '' ? $data['toUrl'] : null);
+
+        $data['type'] = trim($data['type'] ?? '');
+        $data['type'] = ($data['type'] !== '' ? $data['type'] : 301);
+
         $data['regex'] = (($data['regex'] ?? false) ? true : false);
         $data['ignoreQueryParams'] = (($data['ignoreQueryParams'] ?? false) ? true : false);
         $data['priority'] = intval($data['priority'] ?? 0);
