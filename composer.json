@@ -1,6 +1,6 @@
 {
   "name": "xorb/search",
-  "description": "Index pages and PDF files and provide search results for your website.",
+  "description": "Index pages and files and provide search results for your website reguardless of setup.",
   "type": "craft-plugin",
   "keywords": [
       "craft",
@@ -40,7 +40,7 @@
     }
   },
   "extra": {
-    "handle": "search",
+    "handle": "xsearch",
     "name": "Search",
     "developer": "XORB"
   },

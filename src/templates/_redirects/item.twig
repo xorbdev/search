@@ -1,26 +1,26 @@
-{% set meta = craft.search.redirectsMeta %}
+{% set meta = craft.xsearch.redirectsMeta %}
 
 {% extends meta.layout %}
 {% import '_includes/forms' as forms %}
 
 {% if id %}
-    {% set title = 'Edit Redirect'|t('search') %}
-    {% set pageTitle = 'Edit'|t('search') %}
+    {% set title = 'Edit Redirect'|t('xsearch') %}
+    {% set pageTitle = 'Edit'|t('xsearch') %}
 {% else %}
-    {% set title = 'New Redirect'|t('search') %}
-    {% set pageTitle = 'New'|t('search') %}
+    {% set title = 'New Redirect'|t('xsearch') %}
+    {% set pageTitle = 'New'|t('xsearch') %}
 {% endif %}
 
 {% block actionButton %}
     <div class="buttons">
         <div class="btngroup submit">
-            <input type="submit" class="btn submit" value="{{'Save'|t('search')}}">
+            <input type="submit" class="btn submit" value="{{'Save'|t('xsearch')}}">
         </div>
     </div>
 {% endblock %}
 
 {% block content %}
-    {{actionInput('search/redirects/save')}}
+    {{actionInput('xsearch/redirects/save')}}
     {{redirectInput(meta.url)}}
 
     {% if id %}<input type="hidden" name="data[id]" value="{{id}}">{% endif %}
@@ -34,7 +34,7 @@
 
     {{forms.textField({
         first: not item.getFirstError('general'),
-        label: 'From URI'|t('search'),
+        label: 'From URI'|t('xsearch'),
         name: 'data[fromUrl]',
         value: item.fromUrl,
         errors: item.getErrors('fromUrl'),
@@ -42,41 +42,41 @@
     })}}
 
     {{forms.textField({
-        label: 'To URI'|t('search'),
+        label: 'To URI'|t('xsearch'),
         name: 'data[toUrl]',
         value: item.toUrl,
         errors: item.getErrors('toUrl'),
     })}}
 
     {{forms.lightswitchField({
-        label: 'Regex'|t('search'),
-        instructions: 'Process **From URI** as a regular expression.'|t('search'),
+        label: 'Regex'|t('xsearch'),
+        instructions: 'Process **From URI** as a regular expression.'|t('xsearch'),
         name: 'data[regex]',
         on: item.regex,
         errors: item.getErrors('regex'),
     })}}
 
     {{forms.lightswitchField({
-        label: 'Ignore Query Params'|t('search'),
+        label: 'Ignore Query Params'|t('xsearch'),
         instructions: 'Ignore query params when testing for a match.',
-        tip: 'Any query params in the current URI will be brought over to the resulting URI unless overriden by the **To URI** field.'|t('search'),
+        tip: 'Any query params in the current URI will be brought over to the resulting URI unless overriden by the **To URI** field.'|t('xsearch'),
         name: 'data[ignoreQueryParams]',
         on: item.ignoreQueryParams,
         errors: item.getErrors('ignoreQueryParams'),
     })}}
 
     {{forms.selectField({
-        label: 'Redirect Type'|t('search'),
-        tip: 'If using **410 Gone**, you can leave **To URI** empty.'|t('search'),
+        label: 'Redirect Type'|t('xsearch'),
+        tip: 'If using **410 Gone**, you can leave **To URI** empty.'|t('xsearch'),
         name: 'data[type]',
-        options: craft.search.redirectTypeOptions(),
+        options: craft.xsearch.redirectTypeOptions(),
         value: item.type,
         errors: item.getErrors('type'),
     })}}
 
     {{forms.textField({
-        label: 'Priority'|t('search'),
-        instructions: 'Redirects with a higher priority will be matched against first.'|t('search'),
+        label: 'Priority'|t('xsearch'),
+        instructions: 'Redirects with a higher priority will be matched against first.'|t('xsearch'),
         type: 'number',
         min: 0,
         step: 1,
@@ -90,7 +90,7 @@
         {{forms.selectField({
             label: 'Site'|t('app'),
             name: 'data[siteId]',
-            options: craft.search.siteOptions(''),
+            options: craft.xsearch.siteOptions(''),
             value: item.siteId,
             errors: item.getErrors('siteId'),
         })}}

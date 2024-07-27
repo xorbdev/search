@@ -1,22 +1,22 @@
-{% set meta = craft.search.queryParamRulesMeta %}
+{% set meta = craft.xsearch.queryParamRulesMeta %}
 
-{% if not craft.search.hasQueryParamRules %}
+{% if not craft.xsearch.hasQueryParamRules %}
     {% redirect meta.url ~ '/new' %}
 {% endif %}
 
 {% extends meta.layout %}
 {% do view.registerAssetBundle('craft\\web\\assets\\admintable\\AdminTableAsset') -%}
 
-{% set title = 'Query Param Rules'|t('search') %}
+{% set title = 'Query Param Rules'|t('xsearch') %}
 
 {% block actionButton %}
     <a href="{{ url(meta.url ~ '/new') }}" class="btn submit add icon">
-        {{'New Rule'|t('search')}}
+        {{'New Rule'|t('xsearch')}}
     </a>
 {% endblock %}
 
 {% block content %}
-    <div id="search_index_table"></div>
+    <div id="xsearch_index_table"></div>
 {% endblock %}
 
 {% set tableData = [] %}
@@ -26,9 +26,9 @@
         id: item.id,
         title: item.name,
         resultUrlValue: item.resultUrlValue,
-        resultUrlComparator: craft.search.comparatorOptions()[item.resultUrlComparator],
+        resultUrlComparator: craft.xsearch.comparatorOptions()[item.resultUrlComparator],
         queryParamPair: item.queryParamKey ~ ' = ' ~ item.queryParamValue,
-        queryParamComparator: craft.search.comparatorOptions()[item.resultUrlComparator],
+        queryParamComparator: craft.xsearch.comparatorOptions()[item.resultUrlComparator],
         url: url(meta.url ~ '/' ~ item.id),
     }]) %}
 {% endfor %}
@@ -41,27 +41,27 @@
         },
         {
             name: 'resultUrlValue',
-            title: Craft.t('search', 'URI Value')
+            title: Craft.t('xsearch', 'URI Value')
         },
         {
             name: 'resultUrlComparator',
-            title: Craft.t('search', 'URI Comparator')
+            title: Craft.t('xsearch', 'URI Comparator')
         },
         {
             name: 'queryParamPair',
-            title: Craft.t('search', 'Query Param')
+            title: Craft.t('xsearch', 'Query Param')
         },
         {
             name: 'queryParamComparator',
-            title: Craft.t('search', 'Query Comparator')
+            title: Craft.t('xsearch', 'Query Comparator')
         },
     ];
 
     new Craft.VueAdminTable({
         columns: columns,
-        container: '#search_index_table',
-        deleteAction: 'search/query-param-rules/delete',
-        emptyMessage: Craft.t('search', 'No query param rules available.'),
+        container: '#xsearch_index_table',
+        deleteAction: 'xsearch/query-param-rules/delete',
+        emptyMessage: Craft.t('xsearch', 'No query param rules available.'),
         tableData: {{tableData|json_encode|raw}},
     });
 {% endjs %}

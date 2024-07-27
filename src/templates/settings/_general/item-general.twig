@@ -2,46 +2,46 @@
 
 {{forms.textField({
     first: true,
-    label: 'Custom Plugin Name'|t('search'),
-    instructions: 'Overrides the name displayed in the control panel.'|t('search'),
-    placeholder: "Search"|t('search'),
+    label: 'Custom Plugin Name'|t('xsearch'),
+    instructions: 'Overrides the name displayed in the control panel.'|t('xsearch'),
+    placeholder: 'Search'|t('xsearch'),
     name: 'data[pluginName]',
     value: item.pluginName,
     errors: item.getErrors('pluginName'),
 })}}
 
 {{forms.textField({
-    label: 'User-Agent String'|t('search'),
-    instructions: 'The user-agent string that the search indexer will pass with each request.'|t('search'),
-    placeholder: "Craft CMS Search"|t('search'),
-    tip: 'This should be unique from standard browser User-Agent strings so that self crawls don\'t count towards hits.'|t('search'),
+    label: 'User-Agent String'|t('xsearch'),
+    instructions: 'The user-agent string that the search indexer will pass with each request.'|t('xsearch'),
+    placeholder: "Craft CMS Search"|t('xsearch'),
+    tip: 'This should be unique from standard browser User-Agent strings so that self crawls don\'t count towards hits.'|t('xsearch'),
     name: 'data[uaString]',
     value: item.uaString,
     errors: item.getErrors('uaString'),
 })}}
 
-{% if craft.search.isPro %}
+{% if craft.xsearch.isPro %}
     {{forms.textField({
-        label: 'Searchable Assets Field Handle'|t('search'),
-        instructions: 'The handle of the field used to indicate if an asset is searchable or not.'|t('search'),
-        placeholder: "searchableAsset"|t('search'),
-        tip: 'Add a **Searchable** field to your asset volume with this handle to enable searchable assets.'|t('search'),
+        label: 'Searchable Assets Field Handle'|t('xsearch'),
+        instructions: 'The handle of the field used to indicate if an asset is searchable or not.'|t('xsearch'),
+        placeholder: 'searchableAsset'|t('xsearch'),
+        tip: 'Add a **Searchable** field to your asset volume with this handle to enable searchable assets.'|t('xsearch'),
         name: 'data[searchableAssetFieldHandle]',
         value: item.searchableAssetFieldHandle,
         errors: item.getErrors('searchableAssetFieldHandle'),
     })}}
 
     {{forms.lightswitchField({
-        label: 'Track Page Queries'|t('search'),
-        instructions: 'Track queries to see what your users are searching for to better tailor your search results with search term maps and priorities.'|t('search'),
+        label: 'Track Page Queries'|t('xsearch'),
+        instructions: 'Track queries to see what your users are searching for to better tailor your search results with search term maps and priorities.'|t('xsearch'),
         name: 'data[trackQueries]',
         on: item.trackQueries,
         errors: item.getErrors('trackQueries'),
     })}}
 
     {{forms.lightswitchField({
-        label: 'Track 404 Errors'|t('search'),
-        instructions: 'Keep track of missing pages so that you can set up redirects.'|t('search'),
+        label: 'Track 404 Errors'|t('xsearch'),
+        instructions: 'Keep track of missing pages so that you can set up redirects.'|t('xsearch'),
         name: 'data[track404s]',
         on: item.track404s,
         errors: item.getErrors('track404s'),

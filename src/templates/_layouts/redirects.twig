@@ -5,11 +5,11 @@
 {% set selectedSubnavItem = 'redirects' %}
 
 {% set crumbs = [
-    { label: craft.search.name, url: url('search') },
+    { label: craft.xsearch.name, url: url('xsearch') },
 ] %}
 
 {% if pageTitle ?? false %}
-    {% set docTitle = pageTitle ~ ' - ' ~ 'Redirects'|t('search') ~ ' - ' ~ 'Search'|t('search') %}
+    {% set docTitle = pageTitle ~ ' - ' ~ 'Redirects'|t('xsearch') ~ ' - ' ~ 'Search'|t('xsearch') %}
 {% else %}
-    {% set docTitle = 'Redirects'|t('search') ~ ' - ' ~ 'Search'|t('search') %}
+    {% set docTitle = 'Redirects'|t('xsearch') ~ ' - ' ~ 'Search'|t('xsearch') %}
 {% endif %}

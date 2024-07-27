@@ -2,8 +2,8 @@
 
 {{forms.lightswitchField({
     first: true,
-    label: 'Enable Sitemap'|t('search'),
-    instructions: 'When enabled, a sitemap will be generated from any indexed pages.'|t('search'),
+    label: 'Enable Sitemap'|t('xsearch'),
+    instructions: 'When enabled, a sitemap will be generated from any indexed pages.'|t('xsearch'),
     name: 'data[enableSitemap]',
     on: item.enableSitemap,
     errors: item.getErrors('enableSitemap'),
@@ -12,72 +12,72 @@
 {% set currentSitemapName = item.sitemapName ?? 'sitemap' %}
 
 {{forms.textField({
-    label: 'Sitemap Name'|t('search'),
-    instructions: 'The name of the sitemap file. It can currently be found at: <a href="' ~ siteUrl ~ currentSitemapName ~ '.xml">' ~ siteUrl ~ currentSitemapName ~ '.xml</a>.'|t('search'),
-    placeholder: "sitemap"|t('search'),
+    label: 'Sitemap Name'|t('xsearch'),
+    instructions: 'The name of the sitemap file. It can currently be found at: <a href="' ~ siteUrl ~ currentSitemapName ~ '.xml">' ~ siteUrl ~ currentSitemapName ~ '.xml</a>.'|t('xsearch'),
+    placeholder: "sitemap"|t('xsearch'),
     name: 'data[sitemapName]',
     value: item.sitemapName,
     errors: item.getErrors('sitemapName'),
 })}}
 
 {{forms.textField({
-    label: 'URL Set Limit'|t('search'),
+    label: 'URL Set Limit'|t('xsearch'),
     type: 'number',
     min: 0,
     step: 100,
-    instructions: 'The maximum number of URLs in a URL set. Set to zero for no limit.'|t('search'),
+    instructions: 'The maximum number of URLs in a URL set. Set to zero for no limit.'|t('xsearch'),
     name: 'data[sitemapUrlLimit]',
     value: item.sitemapUrlLimit,
     errors: item.getErrors('sitemapUrlLimit'),
 })}}
 
 {{forms.lightswitchField({
-    label: 'Include Assets'|t('search'),
-    instructions: 'When enabled, the sitemap will include URIs to indexed assets.'|t('search'),
+    label: 'Include Assets'|t('xsearch'),
+    instructions: 'When enabled, the sitemap will include URIs to indexed assets.'|t('xsearch'),
     name: 'data[sitemapIncludeAssets]',
     on: item.sitemapIncludeAssets,
     errors: item.getErrors('sitemapIncludeAssets'),
 })}}
 
 {{forms.lightswitchField({
-    label: 'Obey Ignore Rules'|t('search'),
-    instructions: 'When enabled, URIs that are set to not appear in search results, will also not appear in the sitemap.'|t('search'),
+    label: 'Obey Ignore Rules'|t('xsearch'),
+    instructions: 'When enabled, URIs that are set to not appear in search results, will also not appear in the sitemap.'|t('xsearch'),
     name: 'data[sitemapIgnoreRules]',
     on: item.sitemapIgnoreRules,
     errors: item.getErrors('sitemapIgnoreRules'),
 })}}
 
-<h2>{{'New URIs'|t('search')}}</h2>
+<h2>{{'New URIs'|t('xsearch')}}</h2>
 
-<p>{{'These settings determine the default sitemap behaviour of newly indexed URIs.'|t('search')|raw}}</p>
+<p>{{'These settings determine the default sitemap behaviour of newly indexed URIs.'|t('xsearch')|raw}}</p>
 
 {{forms.selectField({
-    label: 'Priority'|t('search'),
+    label: 'Priority'|t('xsearch'),
     name: "data[sitemapDefaultPriority]",
-    options: craft.search.sitemapPriorityOptions,
+    options: craft.xsearch.sitemapPriorityOptions,
     value: item.sitemapDefaultPriority,
     errors: item.getErrors('sitemapDefaultPriority'),
 })}}
 
 {{forms.selectField({
-    label: 'Change Frequency'|t('search'),
+    label: 'Change Frequency'|t('xsearch'),
     name: "data[sitemapDefaultChangefreq]",
-    options: craft.search.sitemapChangefreqOptions,
+    options: craft.xsearch.sitemapChangefreqOptions,
     value: item.sitemapDefaultChangefreq,
     errors: item.getErrors('sitemapDefaultChangefreq'),
 })}}
 
 {{forms.lightswitchField({
-    label: 'Ignore New Pages'|t('search'),
-    instructions: 'When enabled, newly indexed pages will not be added to the sitemap.'|t('search'),
+    label: 'Ignore New Pages'|t('xsearch'),
+    instructions: 'When enabled, newly indexed pages will not be added to the sitemap.'|t('xsearch'),
     name: 'data[sitemapIgnoreNewPageUrls]',
     on: item.sitemapIgnoreNewPageUrls,
     errors: item.getErrors('sitemapIgnoreNewPageUrls'),
 })}}
 
 {{forms.lightswitchField({
-    label: 'Ignore New Assets'|t('search'),
-    instructions: 'When enabled, newly indexed assets will not be added to the sitemap.'|t('search'),
+    label: 'Ignore New Assets'|t('xsearch'),
+    instructions: 'When enabled, newly indexed assets will not be added to the sitemap.'|t('xsearch'),
     name: 'data[sitemapIgnoreNewAssetUrls]',
     on: item.sitemapIgnoreNewAssetUrls,
     errors: item.getErrors('sitemapIgnoreNewAssetUrls'),

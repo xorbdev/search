@@ -1,19 +1,19 @@
 <button type="button" class="btn menubtn" aria-label="{{ "Set status"|t('app') }}">{{ "Set status"|t('app') }}</button>
 <div class="menu">
     <ul>
-        <li><a class="formsubmit" data-param="status" data-value="search-enabled"><span class="status enabled"></span> {{ "Search Enabled"|t('search') }}</a></li>
-        <li><a class="formsubmit" data-param="status" data-value="search-disabled"><span class="status disabled"></span> {{ "Search Disabled"|t('search') }}</a></li>
+        <li><a class="formsubmit" data-param="status" data-value="search-enabled"><span class="status enabled"></span> {{ "Search Enabled"|t('xsearch') }}</a></li>
+        <li><a class="formsubmit" data-param="status" data-value="search-disabled"><span class="status disabled"></span> {{ "Search Disabled"|t('xsearch') }}</a></li>
     </ul>
-    {% if craft.search.showSitemap %}
+    {% if craft.xsearch.showSitemap %}
     <hr>
     <ul>
-        <li><a class="formsubmit" data-param="status" data-value="sitemap-enabled"><span class="status enabled"></span> {{ "Sitemap Enabled"|t('search') }}</a></li>
-        <li><a class="formsubmit" data-param="status" data-value="sitemap-disabled"><span class="status disabled"></span> {{ "Sitemap Disabled"|t('search') }}</a></li>
+        <li><a class="formsubmit" data-param="status" data-value="sitemap-enabled"><span class="status enabled"></span> {{ "Sitemap Enabled"|t('xsearch') }}</a></li>
+        <li><a class="formsubmit" data-param="status" data-value="sitemap-disabled"><span class="status disabled"></span> {{ "Sitemap Disabled"|t('xsearch') }}</a></li>
     </ul>
     {% endif %}
     <hr>
     <ul>
-        <li><a class="formsubmit" data-param="status" data-value="rules-enabled"><span class="status enabled"></span> {{ "Rules Enabled"|t('search') }}</a></li>
-        <li><a class="formsubmit" data-param="status" data-value="rules-disabled"><span class="status disabled"></span> {{ "Rules Disabled"|t('search') }}</a></li>
+        <li><a class="formsubmit" data-param="status" data-value="rules-enabled"><span class="status enabled"></span> {{ "Rules Enabled"|t('xsearch') }}</a></li>
+        <li><a class="formsubmit" data-param="status" data-value="rules-disabled"><span class="status disabled"></span> {{ "Rules Disabled"|t('xsearch') }}</a></li>
     </ul>
 </div>

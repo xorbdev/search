@@ -1,27 +1,27 @@
-{% set meta = craft.search.termMapsMeta %}
+{% set meta = craft.xsearch.termMapsMeta %}
 
 {% extends meta.layout %}
 {% import '_includes/forms' as forms %}
-{% import 'search/_includes/forms' as searchForms %}
+{% import 'xsearch/_includes/forms' as searchForms %}
 
 {% if id %}
-    {% set title = 'Edit Search Term Map'|t('search') %}
-    {% set pageTitle = 'Edit'|t('search') %}
+    {% set title = 'Edit Search Term Map'|t('xsearch') %}
+    {% set pageTitle = 'Edit'|t('xsearch') %}
 {% else %}
-    {% set title = 'New Search Term Map'|t('search') %}
-    {% set pageTitle = 'New'|t('search') %}
+    {% set title = 'New Search Term Map'|t('xsearch') %}
+    {% set pageTitle = 'New'|t('xsearch') %}
 {% endif %}
 
 {% block actionButton %}
     <div class="buttons">
         <div class="btngroup submit">
-            <input type="submit" class="btn submit" value="{{'Save'|t('search')}}">
+            <input type="submit" class="btn submit" value="{{'Save'|t('xsearch')}}">
         </div>
     </div>
 {% endblock %}
 
 {% block content %}
-    {{actionInput('search/term-maps/save')}}
+    {{actionInput('xsearch/term-maps/save')}}
     {{redirectInput(meta.url)}}
 
     {% if id %}<input type="hidden" name="data[id]" value="{{id}}">{% endif %}
@@ -35,7 +35,7 @@
 
     {{forms.textField({
         first: not item.getFirstError('general'),
-        label: 'Search Term'|t('search'),
+        label: 'Search Term'|t('xsearch'),
         name: 'data[term]',
         value: item.term,
         errors: item.getErrors('term'),
@@ -43,7 +43,7 @@
     })}}
 
     {{forms.textField({
-        label: 'Alternate'|t('search'),
+        label: 'Alternate'|t('xsearch'),
         name: 'data[alternate]',
         value: item.alternate,
         errors: item.getErrors('alternate'),
@@ -54,7 +54,7 @@
         {{forms.selectField({
             label: 'Site'|t('app'),
             name: 'data[siteId]',
-            options: craft.search.siteOptions(''),
+            options: craft.xsearch.siteOptions(''),
             value: item.siteId,
             errors: item.getErrors('siteId'),
         })}}

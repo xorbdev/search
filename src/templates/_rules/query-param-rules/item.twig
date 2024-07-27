@@ -1,27 +1,27 @@
-{% set meta = craft.search.queryParamRulesMeta %}
+{% set meta = craft.xsearch.queryParamRulesMeta %}
 
 {% extends meta.layout %}
 {% import '_includes/forms' as forms %}
-{% import 'search/_includes/forms' as searchForms %}
+{% import 'xsearch/_includes/forms' as searchForms %}
 
 {% if id %}
-    {% set title = 'Edit Query Param Rule'|t('search') %}
-    {% set pageTitle = 'Edit'|t('search') %}
+    {% set title = 'Edit Query Param Rule'|t('xsearch') %}
+    {% set pageTitle = 'Edit'|t('xsearch') %}
 {% else %}
-    {% set title = 'New Query Param Rule'|t('search') %}
-    {% set pageTitle = 'New'|t('search') %}
+    {% set title = 'New Query Param Rule'|t('xsearch') %}
+    {% set pageTitle = 'New'|t('xsearch') %}
 {% endif %}
 
 {% block actionButton %}
     <div class="buttons">
         <div class="btngroup submit">
-            <input type="submit" class="btn submit" value="{{'Save'|t('search')}}">
+            <input type="submit" class="btn submit" value="{{'Save'|t('xsearch')}}">
         </div>
     </div>
 {% endblock %}
 
 {% block content %}
-    {{actionInput('search/query-param-rules/save')}}
+    {{actionInput('xsearch/query-param-rules/save')}}
     {{redirectInput(meta.url)}}
 
     {% if id %}<input type="hidden" name="data[id]" value="{{id}}">{% endif %}
@@ -38,8 +38,8 @@
     </p>
 
     {{forms.textField({
-        label: 'Name'|t('search'),
-        instructions: 'This name is used for your identification only.'|t('search'),
+        label: 'Name'|t('xsearch'),
+        instructions: 'This name is used for your identification only.'|t('xsearch'),
         name: 'data[name]',
         value: item.name,
         errors: item.getErrors('name'),
@@ -47,10 +47,10 @@
     })}}
 
     {{searchForms.urlComparatorField({
-        label: 'Result URI'|t('search'),
-        instructions: 'Allow query params on pages that match this URI comparison.'|t('search'),
-        tip: 'Query param values will always compare using exact match. Leave query param values empty to ensure not set. Any query params not specified will be ignored. The path portion will always be compared against a path with normalized slashes (/like/this).'|t('search'),
-        placeholder: '/page/path'|t('search'),
+        label: 'Result URI'|t('xsearch'),
+        instructions: 'Allow query params on pages that match this URI comparison.'|t('xsearch'),
+        tip: 'Query param values will always compare using exact match. Leave query param values empty to ensure not set. Any query params not specified will be ignored. The path portion will always be compared against a path with normalized slashes (/like/this).'|t('xsearch'),
+        placeholder: '/page/path'|t('xsearch'),
         name: 'resultUrl',
         comparator: item.resultUrlComparator,
         value: item.resultUrlValue,
@@ -59,8 +59,8 @@
     })}}
 
     {{searchForms.queryParamComparatorField({
-        label: 'Query Param'|t('search'),
-        instructions: 'Allow query param that matches this comparison. The compare method is applied to the value only.'|t('search'),
+        label: 'Query Param'|t('xsearch'),
+        instructions: 'Allow query param that matches this comparison. The compare method is applied to the value only.'|t('xsearch'),
         name: 'queryParam',
         comparator: item.queryParamComparator,
         key: item.queryParamKey,
@@ -73,7 +73,7 @@
         {{forms.selectField({
             label: 'Site'|t('app'),
             name: 'data[siteId]',
-            options: craft.search.siteOptions(''),
+            options: craft.xsearch.siteOptions(''),
             value: item.siteId,
             errors: item.getErrors('siteId'),
         })}}

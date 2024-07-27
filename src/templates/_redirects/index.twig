@@ -1,22 +1,22 @@
-{% set meta = craft.search.redirectsMeta %}
+{% set meta = craft.xsearch.redirectsMeta %}
 
-{% if not craft.search.hasRedirects %}
+{% if not craft.xsearch.hasRedirects %}
     {% redirect meta.url ~ '/new' %}
 {% endif %}
 
 {% extends meta.layout %}
 {% do view.registerAssetBundle('craft\\web\\assets\\admintable\\AdminTableAsset') -%}
 
-{% set title = 'Redirects'|t('search') %}
+{% set title = 'Redirects'|t('xsearch') %}
 
 {% block actionButton %}
-    <a href="{{ url('search/redirects/new') }}" class="btn submit add icon">
-        {{'New Redirect'|t('search')}}
+    <a href="{{ url('xsearch/redirects/new') }}" class="btn submit add icon">
+        {{'New Redirect'|t('xsearch')}}
     </a>
 {% endblock %}
 
 {% block content %}
-    <div id="search_index_table"></div>
+    <div id="xsearch_index_table"></div>
 {% endblock %}
 
 {% set tableData = [] %}
@@ -26,7 +26,7 @@
         id: item.id,
         title: item.fromUrl,
         toUrl: item.toUrl,
-        type: craft.search.redirectTypeOptions()[item.type],
+        type: craft.xsearch.redirectTypeOptions()[item.type],
         priority: item.priority,
         url: url(meta.url ~ '/' ~ item.id),
     }]) %}
@@ -36,27 +36,27 @@
     var columns = [
         {
             name: '__slot:title',
-            title: Craft.t('search', 'From'),
+            title: Craft.t('xsearch', 'From'),
         },
         {
             name: 'toUrl',
-            title: Craft.t('search', 'To'),
+            title: Craft.t('xsearch', 'To'),
         },
         {
             name: 'type',
-            title: Craft.t('search', 'Type'),
+            title: Craft.t('xsearch', 'Type'),
         },
         {
             name: 'priority',
-            title: Craft.t('search', 'Priority'),
+            title: Craft.t('xsearch', 'Priority'),
         },
     ];
 
     new Craft.VueAdminTable({
         columns: columns,
-        container: '#search_index_table',
-        deleteAction: 'search/redirect/delete',
-        emptyMessage: Craft.t('search', 'No redirect available.'),
+        container: '#xsearch_index_table',
+        deleteAction: 'xsearch/redirect/delete',
+        emptyMessage: Craft.t('xsearch', 'No redirect available.'),
         tableData: {{tableData|json_encode|raw}},
     });
 {% endjs %}

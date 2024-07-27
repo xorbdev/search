@@ -61,7 +61,7 @@ class SetStatus extends ElementAction
 })();
 JS, [static::class]);
 
-        return Craft::$app->getView()->renderTemplate('search/_components/elementactions/set-status.twig');
+        return Craft::$app->getView()->renderTemplate(Plugin::HANDLE . '/_components/elementactions/set-status.twig');
     }
 
     public function performAction(ElementQueryInterface $query): bool

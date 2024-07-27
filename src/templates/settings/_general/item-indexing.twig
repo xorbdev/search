@@ -1,64 +1,64 @@
 {% import '_includes/forms.twig' as forms %}
 
-<h2>{{'Page Score'|t('search')}}</h2>
+<h2>{{'Page Score'|t('xsearch')}}</h2>
 
-<p>{{'Page score determines the default order of matching results.'|t('search')|raw}}</p>
+<p>{{'Page score determines the default order of matching results.'|t('xsearch')|raw}}</p>
 
 {{forms.lightswitchField({
-    label: 'Track Page Hits'|t('search'),
-    instructions: 'Hits are used when scoring relevancy of results as well as a way to determine what pages exist.'|t('search'),
+    label: 'Track Page Hits'|t('xsearch'),
+    instructions: 'Hits are used when scoring relevancy of results as well as a way to determine what pages exist.'|t('xsearch'),
     name: 'data[trackHits]',
     on: item.trackHits,
     errors: item.getErrors('trackHits'),
 })}}
 
 {{forms.selectField({
-    label: 'Hit Score Period'|t('search'),
-    instructions: 'Specifies at what age hits should no longer be considered relevent.'|t('search'),
+    label: 'Hit Score Period'|t('xsearch'),
+    instructions: 'Specifies at what age hits should no longer be considered relevent.'|t('xsearch'),
     name: "data[hitScorePeriod]",
-    options: craft.search.hitScorePeriodOptions,
+    options: craft.xsearch.hitScorePeriodOptions,
     value: item.hitScorePeriod,
     errors: item.getErrors('hitScorePeriod'),
 })}}
 
 {{forms.lightswitchField({
-    label: 'Weighted Hits'|t('search'),
-    instructions: 'Specifies if the age of relevent hits should be taken into account when calculating a score.'|t('search'),
+    label: 'Weighted Hits'|t('xsearch'),
+    instructions: 'Specifies if the age of relevent hits should be taken into account when calculating a score.'|t('xsearch'),
     name: 'data[weightedHitScore]',
     on: item.weightedHitScore,
     errors: item.getErrors('weightedHitScore'),
 })}}
 
-<h2>{{'Robot Rules'|t('search')}}</h2>
+<h2>{{'Robot Rules'|t('xsearch')}}</h2>
 
 {{forms.lightswitchField({
-    label: 'Obey Robots.txt'|t('search'),
-    instructions: 'When enabled, indexed urls will be validated against the rules found in your robots.txt.'|t('search'),
+    label: 'Obey Robots.txt'|t('xsearch'),
+    instructions: 'When enabled, indexed urls will be validated against the rules found in your robots.txt.'|t('xsearch'),
     name: 'data[robotsTxt]',
     on: item.robotsTxt,
     errors: item.getErrors('robotsTxt'),
 })}}
 
 {{forms.textField({
-    label: 'Robots.txt User-Agent String'|t('search'),
-    instructions: 'The user-agent string to use when following robot.txt rules. If something other than \' __\\*__ \' is specified, it will still fall back to obeying \' __\\*__ \' if no matching rule is found.'|t('search'),
-    placeholder: "*"|t('search'),
+    label: 'Robots.txt User-Agent String'|t('xsearch'),
+    instructions: 'The user-agent string to use when following robot.txt rules. If something other than \' __\\*__ \' is specified, it will still fall back to obeying \' __\\*__ \' if no matching rule is found.'|t('xsearch'),
+    placeholder: "*"|t('xsearch'),
     name: 'data[robotsUaString]',
     value: item.robotsUaString,
     errors: item.getErrors('robotsUaString'),
 })}}
 
 {{forms.lightswitchField({
-    label: 'Obey Robots Meta Tag'|t('search'),
-    instructions: 'When enabled, the indexer will obey <b>none</b>, <b>noindex</b>, and <b>unavailable_after</b> rules contained in the robots meta tag.'|t('search'),
+    label: 'Obey Robots Meta Tag'|t('xsearch'),
+    instructions: 'When enabled, the indexer will obey <b>none</b>, <b>noindex</b>, and <b>unavailable_after</b> rules contained in the robots meta tag.'|t('xsearch'),
     name: 'data[robotsMetaTag]',
     on: item.robotsMetaTag,
     errors: item.getErrors('robotsMetaTag'),
 })}}
 
 {{forms.lightswitchField({
-    label: 'Obey X-Robots-Tag HTTP Header'|t('search'),
-    instructions: 'When enabled, the indexer will obey <b>none</b>, <b>noindex</b>, and <b>unavailable_after</b> rules contained in the X-Robots-Tag HTTP header.'|t('search'),
+    label: 'Obey X-Robots-Tag HTTP Header'|t('xsearch'),
+    instructions: 'When enabled, the indexer will obey <b>none</b>, <b>noindex</b>, and <b>unavailable_after</b> rules contained in the X-Robots-Tag HTTP header.'|t('xsearch'),
     name: 'data[robotsHttpHeader]',
     on: item.robotsHttpHeader,
     errors: item.getErrors('robotsHttpHeader'),

@@ -15,7 +15,7 @@
                 <div>
                     {{forms.select({
                         name: "data[#{config.name}Comparator]",
-                        options: craft.search.comparatorOptions,
+                        options: craft.xsearch.comparatorOptions,
                         value: config.comparator,
                         describedBy: describedBy,
                     })}}
@@ -35,7 +35,7 @@
                         class: 'ltr',
                         name: "data[#{config.name}Key]",
                         value: config.key,
-                        placeholder: 'key'|t('search'),
+                        placeholder: 'key'|t('xsearch'),
                         describedBy: describedBy,
                     })}}
                 </div>
@@ -45,14 +45,14 @@
                         class: 'ltr',
                         name: "data[#{config.name}Value]",
                         value: config.value,
-                        placeholder: config.placeholder ?? 'value'|t('search'),
+                        placeholder: config.placeholder ?? 'value'|t('xsearch'),
                         describedBy: describedBy,
                     })}}
                 </div>
                 <div>
                     {{forms.select({
                         name: "data[#{config.name}Comparator]",
-                        options: craft.search.comparatorOptions,
+                        options: craft.xsearch.comparatorOptions,
                         value: config.comparator,
                         describedBy: describedBy,
                     })}}

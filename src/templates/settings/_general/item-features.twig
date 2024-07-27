@@ -1,26 +1,26 @@
 {% import '_includes/forms.twig' as forms %}
 
-<p>{{'Enabled features will show up in the sidebar navigation, however they will not use **Project Config**. Conversely disabled features will only show up under settings, use **Project Config**, and only be accessible when **allowAdminChanges** is true.'|t('search')|markdown}}</p>
+<p>{{'Enabled features will show up in the sidebar navigation, however they will not use **Project Config**. Conversely disabled features will only show up under settings, use **Project Config**, and only be accessible when **allowAdminChanges** is true.'|t('xsearch')|markdown}}</p>
 
-<p>{{'**Project Config** will be added or deleted accordingly when changed.'|t('search')|markdown}}</p>
+<p>{{'**Project Config** will be added or deleted accordingly when changed.'|t('xsearch')|markdown}}</p>
 
-{% if craft.search.isPro %}
+{% if craft.xsearch.isPro %}
     {{forms.lightswitchField({
-        label: 'Enable Redirects'|t('search'),
+        label: 'Enable Redirects'|t('xsearch'),
         name: 'data[enableRedirects]',
         on: item.enableRedirects,
         errors: item.getErrors('enableRedirects'),
     })}}
 
     {{forms.lightswitchField({
-        label: 'Enable Search Term Maps'|t('search'),
+        label: 'Enable Search Term Maps'|t('xsearch'),
         name: 'data[enableTermMaps]',
         on: item.enableTermMaps,
         errors: item.getErrors('enableTermMaps'),
     })}}
 
     {{forms.lightswitchField({
-        label: 'Enable Search Term Priorites'|t('search'),
+        label: 'Enable Search Term Priorites'|t('xsearch'),
         name: 'data[enableTermPriorities]',
         on: item.enableTermPriorities,
         errors: item.getErrors('enableTermPriorities'),
@@ -28,14 +28,14 @@
 {% endif %}
 
 {{forms.lightswitchField({
-    label: 'Enable Ignore Rules'|t('search'),
+    label: 'Enable Ignore Rules'|t('xsearch'),
     name: 'data[enableIgnoreRules]',
     on: item.enableIgnoreRules,
     errors: item.getErrors('enableIgnoreRules'),
 })}}
 
 {{forms.lightswitchField({
-    label: 'Enable Query Param Rules'|t('search'),
+    label: 'Enable Query Param Rules'|t('xsearch'),
     name: 'data[enableQueryParamRules]',
     on: item.enableQueryParamRules,
     errors: item.getErrors('enableQueryParamRules'),

@@ -317,11 +317,11 @@ class Result extends Element
         return [
             [
                 'label' => Plugin::t('Search'),
-                'url' => 'search',
+                'url' => Plugin::HANDLE,
             ],
             [
                 'label' => Plugin::t('Results'),
-                'url' =>  'search/results',
+                'url' => Plugin::HANDLE . '/results',
             ],
         ];
     }
@@ -582,12 +582,12 @@ class Result extends Element
 
     public function getPostEditUrl(): ?string
     {
-        return UrlHelper::cpUrl('search/results');
+        return UrlHelper::cpUrl(Plugin::HANDLE . '/results');
     }
 
     protected function cpEditUrl(): ?string
     {
-        return UrlHelper::cpUrl('search/results/' . $this->id);
+        return UrlHelper::cpUrl(Plugin::HANDLE . '/results/' . $this->id);
     }
 
     public function setAttributesFromRequest(array $values): void

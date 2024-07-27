@@ -1,28 +1,28 @@
-{% extends 'search/_layouts/settings' %}
+{% extends 'xsearch/_layouts/settings' %}
 
-{% set title = 'General Settings'|t('search') %}
+{% set title = 'General Settings'|t('xsearch') %}
 
 {% set tabs = [
     {
-        label: 'General'|t('search'),
+        label: 'General'|t('xsearch'),
         url: '#settings-general-general',
         class: item.hasGeneralErrors() ? 'error' : null,
     },
     {
-        label: 'Features'|t('search'),
+        label: 'Features'|t('xsearch'),
         url: '#settings-general-features',
         class: item.hasFeaturesErrors() ? 'error' : null,
     },
     {
-        label: 'Indexing'|t('search'),
+        label: 'Indexing'|t('xsearch'),
         url: '#settings-general-indexing',
         class: item.hasIndexingErrors() ? 'error' : null,
     },
 ] %}
 
-{% if craft.search.isPro %}
+{% if craft.xsearch.isPro %}
     {% set tabs = tabs|merge([{
-        label: 'Sitemap'|t('search'),
+        label: 'Sitemap'|t('xsearch'),
         url: '#settings-general-sitemap',
         class: item.hasSitemapErrors() ? 'error' : null,
     }]) %}
@@ -31,30 +31,30 @@
 {% block actionButton %}
     <div class="buttons">
         <div class="btngroup submit">
-            <input type="submit" class="btn submit" value="{{ 'Save'|t('search') }}">
+            <input type="submit" class="btn submit" value="{{ 'Save'|t('xsearch') }}">
         </div>
     </div>
 {% endblock %}
 
 {% block content %}
-    {{ actionInput('search/settings/save') }}
-    {{ redirectInput('search/settings/general') }}
+    {{ actionInput('xsearch/settings/save') }}
+    {{ redirectInput('xsearch/settings/general') }}
 
 	<div id="settings-general-general">
-		{% include 'search/settings/_general/item-general' %}
+		{% include 'xsearch/settings/_general/item-general' %}
 	</div>
 
 	<div id="settings-general-features" class="hidden">
-		{% include 'search/settings/_general/item-features' %}
+		{% include 'xsearch/settings/_general/item-features' %}
 	</div>
 
 	<div id="settings-general-indexing" class="hidden">
-		{% include 'search/settings/_general/item-indexing' %}
+		{% include 'xsearch/settings/_general/item-indexing' %}
 	</div>
 
-    {% if craft.search.isPro %}
+    {% if craft.xsearch.isPro %}
         <div id="settings-general-sitemap" class="hidden">
-            {% include 'search/settings/_general/item-sitemap' %}
+            {% include 'xsearch/settings/_general/item-sitemap' %}
         </div>
     {% endif %}
 {% endblock %}

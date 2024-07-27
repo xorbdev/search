@@ -234,18 +234,18 @@ class CpVariable extends BaseVariable
 
         if ($features->isCpRules()) {
             return [
-                'layout' => 'search/_layouts/rules',
-                'url' => 'search/rules/ignore-rules',
+                'layout' => Plugin::HANDLE . '/_layouts/rules',
+                'url' => Plugin::HANDLE . '/rules/ignore-rules',
             ];
         } elseif ($features->isCpIgnoreRules()) {
             return [
-                'layout' => 'search/_layouts/rules',
-                'url' => 'search/ignore-rules',
+                'layout' => Plugin::HANDLE . '/_layouts/rules',
+                'url' => Plugin::HANDLE . '/ignore-rules',
             ];
         } else {
             return [
-                'layout' => 'search/_layouts/settings',
-                'url' => 'search/settings/ignore-rules',
+                'layout' => Plugin::HANDLE . '/_layouts/settings',
+                'url' => Plugin::HANDLE . '/settings/ignore-rules',
             ];
         }
     }
@@ -256,18 +256,18 @@ class CpVariable extends BaseVariable
 
         if ($features->isCpRules()) {
             return [
-                'layout' => 'search/_layouts/rules',
-                'url' => 'search/rules/query-param-rules',
+                'layout' => Plugin::HANDLE . '/_layouts/rules',
+                'url' => Plugin::HANDLE . '/rules/query-param-rules',
             ];
         } elseif ($features->isCpQueryParamRules()) {
             return [
-                'layout' => 'search/_layouts/rules',
-                'url' => 'search/query-param-rules',
+                'layout' => Plugin::HANDLE . '/_layouts/rules',
+                'url' => Plugin::HANDLE . '/query-param-rules',
             ];
         } else {
             return [
-                'layout' => 'search/_layouts/settings',
-                'url' => 'search/settings/query-param-rules',
+                'layout' => Plugin::HANDLE . '/_layouts/settings',
+                'url' => Plugin::HANDLE . '/settings/query-param-rules',
             ];
         }
     }
@@ -295,18 +295,18 @@ class CpVariable extends BaseVariable
 
         if ($features->isCpTerms()) {
             return [
-                'layout' => 'search/_layouts/terms',
-                'url' => 'search/terms/maps',
+                'layout' => Plugin::HANDLE . '/_layouts/terms',
+                'url' => Plugin::HANDLE . '/terms/maps',
             ];
         } elseif ($features->isCpTermMaps()) {
             return [
-                'layout' => 'search/_layouts/terms',
-                'url' => 'search/term-maps',
+                'layout' => Plugin::HANDLE . '/_layouts/terms',
+                'url' => Plugin::HANDLE . '/term-maps',
             ];
         } else {
             return [
-                'layout' => 'search/_layouts/settings',
-                'url' => 'search/settings/term-maps',
+                'layout' => Plugin::HANDLE . '/_layouts/settings',
+                'url' => Plugin::HANDLE . '/settings/term-maps',
             ];
         }
     }
@@ -317,18 +317,18 @@ class CpVariable extends BaseVariable
 
         if ($features->isCpTerms()) {
             return [
-                'layout' => 'search/_layouts/terms',
-                'url' => 'search/terms/priorities',
+                'layout' => Plugin::HANDLE . '/_layouts/terms',
+                'url' => Plugin::HANDLE . '/terms/priorities',
             ];
         } elseif ($features->isCpTermPriorities()) {
             return [
-                'layout' => 'search/_layouts/terms',
-                'url' => 'search/term-priorities',
+                'layout' => Plugin::HANDLE . '/_layouts/terms',
+                'url' => Plugin::HANDLE . '/term-priorities',
             ];
         } else {
             return [
-                'layout' => 'search/_layouts/settings',
-                'url' => 'search/settings/term-priorities',
+                'layout' => Plugin::HANDLE . '/_layouts/settings',
+                'url' => Plugin::HANDLE . '/settings/term-priorities',
             ];
         }
     }
@@ -339,13 +339,13 @@ class CpVariable extends BaseVariable
 
         if ($features->isCpRedirects()) {
             return [
-                'layout' => 'search/_layouts/redirects',
-                'url' => 'search/redirects',
+                'layout' => Plugin::HANDLE . '/_layouts/redirects',
+                'url' => Plugin::HANDLE . '/redirects',
             ];
         } else {
             return [
-                'layout' => 'search/_layouts/settings',
-                'url' => 'search/settings/redirects',
+                'layout' => Plugin::HANDLE . '/_layouts/settings',
+                'url' => Plugin::HANDLE . '/settings/redirects',
             ];
         }
     }

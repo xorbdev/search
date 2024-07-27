@@ -1,22 +1,22 @@
-{% set meta = craft.search.termMapsMeta %}
+{% set meta = craft.xsearch.termMapsMeta %}
 
-{% if not craft.search.hasTermMaps %}
+{% if not craft.xsearch.hasTermMaps %}
     {% redirect meta.url ~ '/new' %}
 {% endif %}
 
 {% extends meta.layout %}
 {% do view.registerAssetBundle('craft\\web\\assets\\admintable\\AdminTableAsset') -%}
 
-{% set title = 'Search Term Maps'|t('search') %}
+{% set title = 'Search Term Maps'|t('xsearch') %}
 
 {% block actionButton %}
     <a href="{{ url(meta.url ~ '/new') }}" class="btn submit add icon">
-        {{'New Map'|t('search')}}
+        {{'New Map'|t('xsearch')}}
     </a>
 {% endblock %}
 
 {% block content %}
-    <div id="search_index_table"></div>
+    <div id="xsearch_index_table"></div>
 {% endblock %}
 
 {% set tableData = [] %}
@@ -34,19 +34,19 @@
     var columns = [
         {
             name: '__slot:title',
-            title: Craft.t('search', 'Search Term'),
+            title: Craft.t('xsearch', 'Search Term'),
         },
         {
             name: 'alternate',
-            title: Craft.t('search', 'Alternate'),
+            title: Craft.t('xsearch', 'Alternate'),
         },
     ];
 
     new Craft.VueAdminTable({
         columns: columns,
-        container: '#search_index_table',
-        deleteAction: 'search/term-maps/delete',
-        emptyMessage: Craft.t('search', 'No term maps available.'),
+        container: '#xsearch_index_table',
+        deleteAction: 'xsearch/term-maps/delete',
+        emptyMessage: Craft.t('xsearch', 'No term maps available.'),
         tableData: {{tableData|json_encode|raw}},
     });
 {% endjs %}

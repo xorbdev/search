@@ -1,13 +1,13 @@
-{% extends 'search/_layouts/queries' %}
+{% extends 'xsearch/_layouts/queries' %}
 
 {% do view.registerAssetBundle('craft\\web\\assets\\admintable\\AdminTableAsset') -%}
 
-{% set title = 'Queries'|t('search') %}
+{% set title = 'Queries'|t('xsearch') %}
 
 {% block toolbar %}
     {% if craft.app.getIsMultiSite() %}
         {% include "_elements/sitemenu" with {
-            urlFormat: cpUrl('search/queries', {site: '{handle}'}),
+            urlFormat: cpUrl('xsearch/queries', {site: '{handle}'}),
         }%}
     {% endif %}
 {% endblock %}
@@ -15,35 +15,35 @@
 {% block actionButton %}
     <div class="buttons">
         <div class="btngroup submit">
-            <input type="submit" class="btn submit" value="{{'Clear'|t('search')}}">
+            <input type="submit" class="btn submit" value="{{'Clear'|t('xsearch')}}">
         </div>
     </div>
 {% endblock %}
 
 {% block content %}
-    {{actionInput('search/queries/clear')}}
+    {{actionInput('xsearch/queries/clear')}}
 
-    <div id="search_index_table"></div>
+    <div id="xsearch_index_table"></div>
 {% endblock %}
 
 {% js %}
     var columns = [
         {
             name: '__slot:title',
-            title: Craft.t('search', 'Query'),
+            title: Craft.t('xsearch', 'Query'),
         },
         {
             name: 'dateQuery',
-            title: Craft.t('search', 'Date'),
+            title: Craft.t('xsearch', 'Date'),
         },
     ];
 
     new Craft.VueAdminTable({
         columns: columns,
-        container: '#search_index_table',
-        deleteAction: 'search/queries/delete',
-        emptyMessage: Craft.t('search', 'No queries available.'),
+        container: '#xsearch_index_table',
+        deleteAction: 'xsearch/queries/delete',
+        emptyMessage: Craft.t('xsearch', 'No queries available.'),
         perPage: 20,
-        tableDataEndpoint: 'search/queries/items',
+        tableDataEndpoint: 'xsearch/queries/items',
     });
 {% endjs %}

@@ -1,22 +1,22 @@
-{% set meta = craft.search.ignoreRulesMeta %}
+{% set meta = craft.xsearch.ignoreRulesMeta %}
 
-{% if not craft.search.hasIgnoreRules %}
+{% if not craft.xsearch.hasIgnoreRules %}
     {% redirect meta.url ~ '/new' %}
 {% endif %}
 
 {% extends meta.layout %}
 {% do view.registerAssetBundle('craft\\web\\assets\\admintable\\AdminTableAsset') -%}
 
-{% set title = 'Ignore Rules'|t('search') %}
+{% set title = 'Ignore Rules'|t('xsearch') %}
 
 {% block actionButton %}
     <a href="{{ url(meta.url ~ '/new') }}" class="btn submit add icon">
-        {{'New Rule'|t('search')}}
+        {{'New Rule'|t('xsearch')}}
     </a>
 {% endblock %}
 
 {% block content %}
-    <div id="search_index_table"></div>
+    <div id="xsearch_index_table"></div>
 {% endblock %}
 
 {% set tableData = [] %}
@@ -26,7 +26,7 @@
         id: item.id,
         title: item.name,
         resultUrlValue: item.resultUrlValue,
-        resultUrlComparator: craft.search.comparatorOptions()[item.resultUrlComparator],
+        resultUrlComparator: craft.xsearch.comparatorOptions()[item.resultUrlComparator],
         absolute: '<span class="status ' ~ (item.absolute  ? 'live' : 'disabled') ~ '"></span>' ~ (item.absolute ? 'Yes'|t('app') : 'No'|t('app')),
         url: url(meta.url ~ '/' ~ item.id),
     }]) %}
@@ -40,23 +40,23 @@
         },
         {
             name: 'resultUrlValue',
-            title: Craft.t('search', 'URI Value')
+            title: Craft.t('xsearch', 'URI Value')
         },
         {
             name: 'resultUrlComparator',
-            title: Craft.t('search', 'URI Comparator')
+            title: Craft.t('xsearch', 'URI Comparator')
         },
         {
             name: 'absolute',
-            title: Craft.t('search', 'Ignore Absolutely')
+            title: Craft.t('xsearch', 'Ignore Absolutely')
         },
     ];
 
     new Craft.VueAdminTable({
         columns: columns,
-        container: '#search_index_table',
-        deleteAction: 'search/ignore-rules/delete',
-        emptyMessage: Craft.t('search', 'No ignore rules available.'),
+        container: '#xsearch_index_table',
+        deleteAction: 'xsearch/ignore-rules/delete',
+        emptyMessage: Craft.t('xsearch', 'No ignore rules available.'),
         tableData: {{tableData|json_encode|raw}},
     });
 {% endjs %}

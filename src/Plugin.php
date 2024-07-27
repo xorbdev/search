@@ -61,7 +61,7 @@ use yii\web\HttpException;
  */
 class Plugin extends \craft\base\Plugin
 {
-    public const HANDLE = 'search';
+    public const HANDLE = 'xsearch';
 
     public const PROJECT_CONFIG_PATH = 'xorb.' . self::HANDLE;
 

@@ -1,27 +1,27 @@
-{% set meta = craft.search.termPrioritiesMeta %}
+{% set meta = craft.xsearch.termPrioritiesMeta %}
 
 {% extends meta.layout %}
 {% import '_includes/forms' as forms %}
-{% import 'search/_includes/forms' as searchForms %}
+{% import 'xsearch/_includes/forms' as searchForms %}
 
 {% if id %}
-    {% set title = 'Edit Search Term Priority'|t('search') %}
-    {% set pageTitle = 'Edit'|t('search') %}
+    {% set title = 'Edit Search Term Priority'|t('xsearch') %}
+    {% set pageTitle = 'Edit'|t('xsearch') %}
 {% else %}
-    {% set title = 'New Search Term Priority'|t('search') %}
-    {% set pageTitle = 'New'|t('search') %}
+    {% set title = 'New Search Term Priority'|t('xsearch') %}
+    {% set pageTitle = 'New'|t('xsearch') %}
 {% endif %}
 
 {% block actionButton %}
     <div class="buttons">
         <div class="btngroup submit">
-            <input type="submit" class="btn submit" value="{{'Save'|t('search')}}">
+            <input type="submit" class="btn submit" value="{{'Save'|t('xsearch')}}">
         </div>
     </div>
 {% endblock %}
 
 {% block content %}
-    {{actionInput('search/term-priorities/save')}}
+    {{actionInput('xsearch/term-priorities/save')}}
     {{redirectInput(meta.url)}}
 
     {% if id %}<input type="hidden" name="data[id]" value="{{id}}">{% endif %}
@@ -35,7 +35,7 @@
 
     {{forms.textField({
         first: not item.getFirstError('general'),
-        label: 'Search Term'|t('search'),
+        label: 'Search Term'|t('xsearch'),
         name: 'data[term]',
         value: item.term,
         errors: item.getErrors('term'),
@@ -43,10 +43,10 @@
     })}}
 
     {{searchForms.urlComparatorField({
-        label: 'Result URI'|t('search'),
-        instructions: 'Set the search order priority of pages that match this URI comparison.'|t('search'),
-        tip: 'Query param values will always compare using exact match. Leave query param values empty to ensure not set. Any query params not specified will be ignored.'|t('search'),
-        placeholder: '/page/path'|t('search'),
+        label: 'Result URI'|t('xsearch'),
+        instructions: 'Set the search order priority of pages that match this URI comparison.'|t('xsearch'),
+        tip: 'Query param values will always compare using exact match. Leave query param values empty to ensure not set. Any query params not specified will be ignored.'|t('xsearch'),
+        placeholder: '/page/path'|t('xsearch'),
         name: 'resultUrl',
         comparator: item.resultUrlComparator,
         value: item.resultUrlValue,
@@ -55,7 +55,7 @@
     })}}
 
     {{forms.textField({
-        label: 'Search Priority'|t('search'),
+        label: 'Search Priority'|t('xsearch'),
         type: 'number',
         min: 0,
         step: 1,
@@ -69,7 +69,7 @@
         {{forms.selectField({
             label: 'Site'|t('app'),
             name: 'data[siteId]',
-            options: craft.search.siteOptions(''),
+            options: craft.xsearch.siteOptions(''),
             value: item.siteId,
             errors: item.getErrors('siteId'),
         })}}

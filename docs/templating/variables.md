@@ -2,7 +2,7 @@
 
 ## Querying Results
 
-To query your results, you can call `craft.search.results` in your twig
+To query your results, you can call `craft.xsearch.results` in your twig
 template.
 
 This will return a `Result` element configured in search mode for the current site.
@@ -12,7 +12,7 @@ This will return a `Result` element configured in search mode for the current si
 {% set offset = offset ?? 0 %}
 {% set limit = limit ?? 20 %}
 
-{% set resultsQuery = craft.search.results(searchQuery).offset(offset).limit(limit) %}
+{% set resultsQuery = craft.xsearch.results(searchQuery).offset(offset).limit(limit) %}
 ```
 
 ## Example Output

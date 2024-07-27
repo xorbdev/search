@@ -1,49 +1,49 @@
 {% import "_includes/forms" as forms %}
 
-<h2>{{ 'Update Search Index'|t('search') }}</h2>
+<h2>{{ 'Update Search Index'|t('xsearch') }}</h2>
 
 <form class="utility" method="post" accept-charset="UTF-8">
-    {{ actionInput('search/utilities/update') }}
+    {{ actionInput('xsearch/utilities/update') }}
     {{ csrfInput() }}
 
-    <p>{{ 'Updating the search index will perform the following tasks:'|t('search') }}</p>
+    <p>{{ 'Updating the search index will perform the following tasks:'|t('xsearch') }}</p>
     <ul class="bullets">
-        <li>{{ 'Add new known pages.'|t('search') }}</li>
-        <li>{{ 'Add new pages picked up by the hit tracker.'|t('search') }}</li>
+        <li>{{ 'Add new known pages.'|t('xsearch') }}</li>
+        <li>{{ 'Add new pages picked up by the hit tracker.'|t('xsearch') }}</li>
 
-        {% if craft.search.isPro %}
-            <li>{{ 'Add newly searchable assets.'|t('search') }}</li>
-            <li>{{ 'Re-index all page and asset URIs.'|t('search') }}</li>
+        {% if craft.xsearch.isPro %}
+            <li>{{ 'Add newly searchable assets.'|t('xsearch') }}</li>
+            <li>{{ 'Re-index all page and asset URIs.'|t('xsearch') }}</li>
         {% else %}
-            <li>{{ 'Re-index all page URIs.'|t('search') }}</li>
+            <li>{{ 'Re-index all page URIs.'|t('xsearch') }}</li>
         {% endif %}
 
-        <li>{{ 'Update search score of each result.'|t('search') }}</li>
-        <li>{{ 'Update search term priority cache.'|t('search') }}</li>
+        <li>{{ 'Update search score of each result.'|t('xsearch') }}</li>
+        <li>{{ 'Update search term priority cache.'|t('xsearch') }}</li>
     </ul>
 
     <div class="buttons">
-        <button type="submit" class="btn submit">{{ 'Update Index'|t('search') }}</button>
+        <button type="submit" class="btn submit">{{ 'Update Index'|t('xsearch') }}</button>
         <div class="utility-status"></div>
     </div>
 </form>
 
 <hr>
 
-<h2>{{ 'Add URI To Index'|t('search') }}</h2>
+<h2>{{ 'Add URI To Index'|t('xsearch') }}</h2>
 
 <form class="utility" method="post" accept-charset="UTF-8">
-    {{ actionInput('search/utilities/add-url') }}
+    {{ actionInput('xsearch/utilities/add-url') }}
     {{ csrfInput() }}
 
     {{ forms.textField({
-        label: "URI"|t('search'),
+        label: "URI"|t('xsearch'),
         name: 'uri',
-        instructions: 'If your URI is relative, it will add it for all sites.'|t('search'),
+        instructions: 'If your URI is relative, it will add it for all sites.'|t('xsearch'),
     }) }}
 
     <div class="buttons">
-        <button type="submit" class="btn submit">{{ 'Add URI'|t('search') }}</button>
+        <button type="submit" class="btn submit">{{ 'Add URI'|t('xsearch') }}</button>
         <div class="utility-status"></div>
     </div>
 </form>

@@ -1,14 +1,14 @@
-{% extends "search/_layouts/settings" %}
+{% extends "xsearch/_layouts/settings" %}
 
-{% set title = 'Result Fields'|t('search') %}
+{% set title = 'Result Fields'|t('xsearch') %}
 
 {% import "_includes/forms" as forms %}
 
 {% block content %}
-    <h2>{{ "Result Fields"|t('search') }}</h2>
+    <h2>{{ "Result Fields"|t('xsearch') }}</h2>
 
-    {{ actionInput('search/result-settings/save') }}
-    {{ redirectInput('search/settings/results') }}
+    {{ actionInput('xsearch/result-settings/save') }}
+    {{ redirectInput('xsearch/settings/results') }}
 
     {{ forms.fieldLayoutDesignerField({
         fieldLayout: fieldLayout,
