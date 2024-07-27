@@ -3,6 +3,7 @@ namespace xorb\search\elements\db;
 
 use Craft;
 use craft\elements\db\ElementQuery;
+use craft\elements\db\OrderByPlaceholderExpression;
 use craft\helpers\Db;
 use craft\helpers\DateTimeHelper;
 use DateTime;
@@ -374,12 +375,9 @@ class ResultQuery extends ElementQuery
         $where = [];
         $expressions = [];
         $terms = [];
+
         $orderByPriority = (
-            (
-                $this->orderBy === null ||
-                $this->orderBy === '' ||
-                $this->orderBy === []
-            ) &&
+            $this->isOrderByEmpty($this->orderBy) &&
             !$this->groupBy
         );
 
@@ -530,6 +528,27 @@ class ResultQuery extends ElementQuery
 
         return true;
     }
+
+    private function isOrderByEmpty(mixed $orderBy): bool
+    {
+        if ($orderBy === null ||
+            $orderBy === '' ||
+            $orderBy === []
+        ) {
+            return true;
+        }
+
+        if (is_array($orderBy) && count($orderBy) === 1) {
+            $orderBy = $orderBy[0];
+
+            if ($orderBy instanceof OrderByPlaceholderExpression) {
+                return $this->isOrderByEmpty($orderBy->expression);
+            }
+        }
+
+        return false;
+    }
+
     private function phraseMatch(string $term): string
     {
         $db = Craft::$app->getDb();
@@ -573,6 +592,7 @@ class ResultQuery extends ElementQuery
             implode(' & ', $expressions),
         );
     }
+
     private function fullTextExpression(
         array $terms,
         bool $exclude = false,
