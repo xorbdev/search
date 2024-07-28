@@ -17,8 +17,8 @@
     }
   ],
   "support": {
-    "issues": "https://github.com/xorb-dev/search/issues",
-    "source": "https://github.com/xorb-dev/search",
+    "issues": "https://github.com/xorbdev/search/issues",
+    "source": "https://github.com/xorbdev/search",
     "docs": "https://xorb.dev/plugins/search/docs"
   },
   "minimum-stability": "dev",
