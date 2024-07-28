@@ -19,5 +19,5 @@ cd /path/to/project
 Then tell composer to require the plugin.
 
 ```bash
-composer require xorbdev/search && php craft plugin/install xsearch
+composer require xorb/search && php craft plugin/install xsearch
 ```
