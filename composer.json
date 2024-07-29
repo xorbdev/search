@@ -41,7 +41,7 @@
   },
   "extra": {
     "handle": "xsearch",
-    "name": "Search",
+    "name": "XORB Search",
     "developer": "XORB"
   },
   "scripts": {
