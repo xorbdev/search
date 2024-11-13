@@ -28,7 +28,7 @@ class SearchableField extends BaseOptionsField
         foreach ($sites as $site) {
             $config['options'][] = [
                 'label' => $site->getName(true),
-                'value' => $site->id,
+                'value' => strval($site->id),
             ];
         }
 

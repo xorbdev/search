@@ -7,16 +7,20 @@ use craft\base\ElementInterface;
 use craft\helpers\UrlHelper;
 use DateTime;
 use xorb\search\elements\Result as ResultElement;
+use xorb\search\events\IndexPageEvent;
 use xorb\search\helpers\PluginHelper;
 use xorb\search\helpers\HtmlPage;
 use xorb\search\helpers\UrlCleaner;
 use xorb\search\helpers\UrlIgnorer;
 use xorb\search\Plugin;
+use yii\base\Event;
 use yii\base\InvalidArgumentException;
 
 class PageResult
 {
     protected static $updatedPages = [];
+
+    public const EVENT_UPDATE_MAIN_DATA = 'eventUpdatePageMainData';
 
     private function __construct()
     {}
@@ -50,7 +54,12 @@ class PageResult
 
         $resultElement = self::getResultElement($siteId, $element, $url);
 
-        return static::update($resultElement);
+        // If null then an existing asset.
+        if ($resultElement === null) {
+            return false;
+        }
+
+        return static::update($resultElement, $element, true);
     }
 
     /**
@@ -63,7 +72,7 @@ class PageResult
         int $siteId,
         ?ElementInterface $element,
         string $url
-    ): ResultElement
+    ): ?ResultElement
     {
         $plugin = Plugin::getInstance();
 
@@ -76,7 +85,13 @@ class PageResult
             ->one();
 
         if ($resultElement !== null) {
-            $resultElement->resultId = ($element ? $element->id : null);
+            $resultId = ($element ? $element->id : null);
+
+            if ($resultElement->resultId === $resultId) {
+                return null;
+            }
+
+            $resultElement->resultId = $resultId;
 
             return $resultElement;
         }
@@ -109,7 +124,11 @@ class PageResult
         return $resultElement;
     }
 
-    public static function update(ResultElement $resultElement): bool
+    public static function update(
+        ResultElement $resultElement,
+        ?ElementInterface $element = null,
+        bool $forceUpdate = false
+    ): bool
     {
         $plugin = Plugin::getInstance();
 
@@ -226,12 +245,13 @@ class PageResult
         }
 
         $resultElement->error = false;
+        $resultElement->errorCode = null;
         $resultElement->dateError = null;
 
         $resultHash = md5($html);
 
         // Same content so nothing to change
-        if ($resultElement->resultHash === $resultHash) {
+        if (!$forceUpdate && $resultElement->resultHash === $resultHash) {
             static::$updatedPages[$key] = Craft::$app->getElements()->saveElement(
                 $resultElement,
             );
@@ -256,6 +276,26 @@ class PageResult
 
         $mainData = $htmlPage->getMain();
 
+        if (Event::hasHandlers(static::class, self::EVENT_UPDATE_MAIN_DATA)) {
+            if ($element === null && $resultElement->resultId) {
+                /** @var ElementInterface|null $element */
+                $element = Craft::$app->elements->getElementById($resultElement->resultId);
+            }
+
+            $event = new IndexPageEvent([
+                'element' => $element,
+                'url' => $url,
+                'mainData' => $mainData,
+            ]);
+
+            Event::trigger(static::class, self::EVENT_UPDATE_MAIN_DATA, $event);
+
+            $mainData = trim($event->mainData ?? '');
+            if ($mainData === '') {
+                $mainData = null;
+            }
+        }
+
         if ($mainData === null) {
             $resultElement->mainHash = null;
             $resultElement->mainData = null;
@@ -268,17 +308,11 @@ class PageResult
         } else {
             $mainHash = md5($mainData);
 
-            if ($resultElement->mainHash === $mainHash) {
-                static::$updatedPages[$key] = Craft::$app->getElements()->saveElement(
-                    $resultElement,
-                );
-
-                return static::$updatedPages[$key];
+            if ($resultElement->mainHash !== $mainHash) {
+                $resultElement->mainHash = $mainHash;
+                $resultElement->mainData = $mainData;
+                $resultElement->dateMainModified = $dateTime;
             }
-
-            $resultElement->mainHash = $mainHash;
-            $resultElement->mainData = $mainData;
-            $resultElement->dateMainModified = $dateTime;
         }
 
         static::$updatedPages[$key] = Craft::$app->getElements()->saveElement(

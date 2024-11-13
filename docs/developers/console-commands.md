@@ -12,6 +12,17 @@ This command will run all tasks relating to updating your search index.
 php craft xsearch/results
 ```
 
+### !!!Options
+
+`--site-id`<br>
+The ID of a site to limit this operation to.
+
+`--force-update-pages`<br>
+Force update pages that have not changed.
+
+`--force-update-assets`<br>
+Force update assets that have not changed.
+
 ## Queue Update
 
 This command will also run all tasks relating to updating your search index
@@ -22,6 +33,17 @@ update under Utilities.
 php craft xsearch/results/queue-update
 ```
 
+### !!!Options
+
+`--site-id`<br>
+The ID of a site to limit this operation to.
+
+`--force-update-pages`<br>
+Force update pages that have not changed.
+
+`--force-update-assets`<br>
+Force update assets that have not changed.
+
 ## Add Assets
 
 This command will add or remove assets based on whether they are marked as
@@ -31,6 +53,11 @@ searchable or not.
 php craft xsearch/results/add-assets
 ```
 
+### !!!Options
+
+`--site-id`<br>
+The ID of a site to limit this operation to.
+
 ## Add Known Pages
 
 This command will add or remove known pages based on your entries and products.
@@ -38,6 +65,11 @@ This command will add or remove known pages based on your entries and products.
 ```bash
 php craft xsearch/results/add-known-pages
 ```
+
+### !!!Options
+
+`--site-id`<br>
+The ID of a site to limit this operation to.
 
 ## Add New Pages
 
@@ -47,6 +79,11 @@ This command will add new pages found from hit tracking.
 php craft xsearch/results/add-new-pages
 ```
 
+### !!!Options
+
+`--site-id`<br>
+The ID of a site to limit this operation to.
+
 ## Update Page Score
 
 This command will update the page score of your results.
@@ -54,6 +91,11 @@ This command will update the page score of your results.
 ```bash
 php craft xsearch/results/update-page-score
 ```
+
+### !!!Options
+
+`--site-id`<br>
+The ID of a site to limit this operation to.
 
 ## Update Results
 
@@ -67,6 +109,17 @@ for those changes to take effect.
 php craft xsearch/results/update-results
 ```
 
+### !!!Options
+
+`--site-id`<br>
+The ID of a site to limit this operation to.
+
+`--force-update-pages`<br>
+Force update pages that have not changed.
+
+`--force-update-assets`<br>
+Force update assets that have not changed.
+
 ## Update Term Priorities Index
 
 For speed considerations, search term priorities need to be indexed. This task
@@ -78,3 +131,8 @@ changes to take effect.
 ```bash
 php craft xsearch/results/update-term-priorities-index
 ```
+
+### !!!Options
+
+`--site-id`<br>
+The ID of a site to limit this operation to.

@@ -22,6 +22,12 @@
         <li>{{ 'Update search term priority cache.'|t('xsearch') }}</li>
     </ul>
 
+    {{forms.lightswitchField({
+        label: 'Force Update'|t('xsearch'),
+        instructions: 'By default, updating the search index will not update data from pages and assets that have not changed. Switching this on will update those pages and assets as well.'|t('xsearch'),
+        name: 'forceUpdate',
+    })}}
+
     <div class="buttons">
         <button type="submit" class="btn submit">{{ 'Update Index'|t('xsearch') }}</button>
         <div class="utility-status"></div>

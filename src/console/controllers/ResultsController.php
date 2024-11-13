@@ -19,6 +19,8 @@ class ResultsController extends Controller
      * @var int|null The site id to update.
      */
     public ?int $siteId = null;
+    public bool $forceUpdatePages = false;
+    public bool $forceUpdateAssets = false;
 
     public $defaultAction = 'update';
 
@@ -27,6 +29,14 @@ class ResultsController extends Controller
         $options = parent::options($actionID);
 
         $options[] = 'siteId';
+
+        if ($actionID === 'update' ||
+            $actionID === 'update-results' ||
+            $actionID === 'queue-update'
+        ) {
+            $options[] = 'forceUpdatePages';
+            $options[] = 'forceUpdateAssets';
+        }
 
         return $options;
     }
@@ -76,6 +86,8 @@ class ResultsController extends Controller
     {
         Queue::push(new UpdateResults([
             'siteId' => $this->siteId,
+            'forceUpdatePages' => $this->forceUpdatePages,
+            'forceUpdateAssets' => $this->forceUpdateAssets,
         ]));
 
         return ExitCode::OK;
@@ -143,7 +155,11 @@ class ResultsController extends Controller
      */
     public function actionUpdateResults(): int
     {
-        $task = new UpdateResultsTask($this->siteId);
+        $task = new UpdateResultsTask(
+            $this->siteId,
+            $this->forceUpdatePages,
+            $this->forceUpdateAssets,
+        );
 
         if (!$task->perform()) {
             return ExitCode::UNSPECIFIED_ERROR;

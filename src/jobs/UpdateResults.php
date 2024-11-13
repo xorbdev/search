@@ -15,6 +15,8 @@ use xorb\search\tasks\UpdateTermPrioritiesIndexTask;
 class UpdateResults extends BaseJob
 {
     public ?int $siteId = null;
+    public bool $forceUpdatePages = false;
+    public bool $forceUpdateAssets = false;
 
     public function execute($queue): void
     {
@@ -51,7 +53,11 @@ class UpdateResults extends BaseJob
             Plugin::t('Reindexing existing results.')
         );
 
-        $task = new UpdateResultsTask($this->siteId);
+        $task = new UpdateResultsTask(
+            $this->siteId,
+            $this->forceUpdatePages,
+            $this->forceUpdateAssets
+        );
         $task->perform();
 
         $this->setProgress(

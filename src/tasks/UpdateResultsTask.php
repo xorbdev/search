@@ -11,9 +11,19 @@ use xorb\search\tasks\BaseTask;
 
 class UpdateResultsTask extends BaseTask
 {
-    public function __construct(?int $siteId = null)
+    protected $forceUpdatePages;
+    protected $forceUpdateAssets;
+
+    public function __construct(
+        ?int $siteId = null,
+        bool $forceUpdatePages = false,
+        bool $forceUpdateAssets = false,
+    )
     {
         parent::__construct('updateResults', $siteId);
+
+        $this->forceUpdatePages = $forceUpdatePages;
+        $this->forceUpdateAssets = $forceUpdateAssets;
     }
 
     public function performSite(int $siteId): bool
@@ -40,9 +50,9 @@ class UpdateResultsTask extends BaseTask
                     ->one();
 
                 if ($resultElement->resultType === 'page') {
-                    PageResult::update($resultElement);
+                    PageResult::update($resultElement, null, $this->forceUpdatePages);
                 } else {
-                    AssetResult::update($resultElement);
+                    AssetResult::update($resultElement, null, $this->forceUpdateAssets);
                 }
             }
         }

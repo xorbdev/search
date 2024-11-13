@@ -8,13 +8,17 @@ use craft\helpers\Search as SearchHelper;
 use craft\helpers\UrlHelper;
 use DateTime;
 use Smalot\PdfParser\Parser as PdfParser;
+use xorb\search\events\IndexAssetEvent;
 use xorb\search\elements\Result as ResultElement;
 use xorb\search\Plugin;
+use yii\base\Event;
 use yii\base\InvalidArgumentException;
 
 class AssetResult
 {
     protected static $updatedAssets = [];
+
+    public const EVENT_UPDATE_MAIN_DATA = 'eventUpdateAssetMainData';
 
     private function __construct()
     {}
@@ -41,14 +45,19 @@ class AssetResult
 
         $resultElement = self::getResultElement($siteId, $asset, $url);
 
-        return static::update($resultElement, $asset);
+        // If null then an existing asset.
+        if ($resultElement === null) {
+            return false;
+        }
+
+        return static::update($resultElement, $asset, true);
     }
 
     private static function getResultElement(
         int $siteId,
         Asset $asset,
         string $url
-    ): ResultElement
+    ): ?ResultElement
     {
         $plugin = Plugin::getInstance();
 
@@ -61,6 +70,10 @@ class AssetResult
             ->one();
 
         if ($resultElement) {
+            if ($resultElement->resultUrl === $url) {
+                return null;
+            }
+
             $resultElement->resultUrl = $url;
             return $resultElement;
         }
@@ -91,7 +104,11 @@ class AssetResult
         return $resultElement;
     }
 
-    public static function update(ResultElement $resultElement, ?Asset $asset = null): bool
+    public static function update(
+        ResultElement $resultElement,
+        ?Asset $asset = null,
+        bool $forceUpdate = false,
+    ): bool
     {
         $plugin = Plugin::getInstance();
 
@@ -133,13 +150,20 @@ class AssetResult
         $resultElement->resultTitle = $asset->title;
         $resultElement->resultDescription = $asset->alt ?? null;
 
+        $resultElement->error = false;
+        $resultElement->errorCode = null;
+        $resultElement->dateError = null;
+
         try {
             $resultHash = hash_file('md5', $asset->getUrl());
         } catch(\Exception $e) {
             $resultHash =  null;
         }
 
-        if ($resultElement->id === null || $resultElement->resultHash !== $resultHash) {
+        if ($forceUpdate ||
+            $resultElement->id === null ||
+            $resultElement->resultHash !== $resultHash
+        ) {
             $resultElement->resultHash = $resultHash;
             $resultElement->dateResultModified = $dateTime;
 
@@ -153,16 +177,32 @@ class AssetResult
                     $resultElement->siteId,
                     $mainData
                 );
+            } else {
+                $mainData = null;
+            }
 
-                $resultElement->mainHash = md5($mainData);
+            if (Event::hasHandlers(static::class, self::EVENT_UPDATE_MAIN_DATA)) {
+                $event = new IndexAssetEvent([
+                    'asset' => $asset,
+                    'mainData' => $mainData,
+                ]);
+
+                Event::trigger(static::class, self::EVENT_UPDATE_MAIN_DATA, $event);
+
+                $mainData = trim($event->mainData ?? '');
+                if ($mainData === '') {
+                    $mainData = null;
+                }
+            }
+
+            $mainHash = md5($mainData ?? '');
+
+            if ($resultElement->mainHash !== $mainHash) {
+                $resultElement->mainHash = $mainHash;
                 $resultElement->mainData = $mainData;
                 $resultElement->dateMainModified = $dateTime;
             }
         }
-
-        $resultElement->error = false;
-        $resultElement->errorCode = null;
-        $resultElement->dateError = null;
 
         static::$updatedAssets[$key] = Craft::$app->getElements()->saveElement(
             $resultElement,

@@ -21,7 +21,12 @@ class UtilitiesController extends Controller
 
     public function actionUpdate(): ?Response
     {
-        Queue::push(new UpdateResults());
+        $forceUpdate = Craft::$app->getRequest()->getParam('forceUpdate');
+
+        Queue::push(new UpdateResults([
+            'forceUpdatePages' => !!$forceUpdate,
+            'forceUpdateAssets' => !!$forceUpdate,
+        ]));
 
         return $this->asSuccess('Update results queued.');
     }
