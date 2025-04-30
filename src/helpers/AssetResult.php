@@ -197,7 +197,9 @@ class AssetResult
 
             $mainHash = md5($mainData ?? '');
 
-            if ($resultElement->mainHash !== $mainHash) {
+            if ($resultElement->mainHash !== $mainHash ||
+                ($resultElement->mainData === null and $mainData !== null)
+            ) {
                 $resultElement->mainHash = $mainHash;
                 $resultElement->mainData = $mainData;
                 $resultElement->dateMainModified = $dateTime;
@@ -260,6 +262,13 @@ class AssetResult
         $site = Craft::$app->getSites()->getSiteById($siteId);
 
         $text = str_replace("\t", ' ', $text);
+
+        // Remove invlaid utf8 multibyte sequences since
+        // StringHelper::replaceMb4 will error out if encountered.
+        $text = iconv('UTF-8', 'UTF-8//IGNORE', $text);
+        if ($text === false) {
+            $text = '';
+        }
 
         return SearchHelper::normalizeKeywords(
             str: $text,
