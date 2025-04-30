@@ -272,7 +272,7 @@ class AssetResult
 
         $text = str_replace("\t", ' ', $text);
 
-        // Remove invlaid utf8 multibyte sequences since
+        // Remove invalid utf8 multibyte sequences since
         // StringHelper::replaceMb4 will error out if encountered.
         $text = iconv('UTF-8', 'UTF-8//IGNORE', $text);
         if ($text === false) {

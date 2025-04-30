@@ -1,5 +1,15 @@
 # Change Log
 
+## 1.1.1 - 2025-04-30
+
+### Fixed
+
+- Fixed Searchable toggle starting off checked.
+- Fixed UrlCleaner failing on malformed URLs.
+- Fixed issue where invalid utf8 multibyte sequences could cause errors.
+- Fixed missing null check after querying ResultElement.
+- Fixed empty PDFs causing during indexing errors.
+
 ## 1.1.0 - 2024-11-13
 
 ### Added

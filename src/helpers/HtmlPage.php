@@ -141,7 +141,7 @@ class HtmlPage
 
         $main = $this->cleanData($this->main);
 
-        // Remove invlaid utf8 multibyte sequences since
+        // Remove invalid utf8 multibyte sequences since
         // StringHelper::replaceMb4 will error out if encountered.
         $main = iconv('UTF-8', 'UTF-8//IGNORE', $main);
         if ($main === false) {
