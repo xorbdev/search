@@ -143,7 +143,7 @@ class SearchableField extends BaseOptionsField
 
     public function normalizeValue(mixed $value, ?ElementInterface $element = null): mixed
     {
-        if (!$this->multiSite && $value !== '' && $value !== []) {
+        if (!$this->multiSite && $value !== '' && $value !== [] && $value !== null) {
             $value = [strval($this->options[0]['value'])];
         }
 
