@@ -4,11 +4,11 @@
 
 ### Fixed
 
-- Fixed Searchable toggle starting off checked.
+- Fixed Searchable toggle starting off toggled on.
 - Fixed UrlCleaner failing on malformed URLs.
 - Fixed issue where invalid utf8 multibyte sequences could cause errors.
 - Fixed missing null check after querying ResultElement.
-- Fixed empty PDFs causing during indexing errors.
+- Fixed empty PDFs causing errors during indexing.
 
 ## 1.1.0 - 2024-11-13
 
