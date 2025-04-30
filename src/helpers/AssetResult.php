@@ -6,6 +6,7 @@ use craft\elements\Asset;
 use craft\fields\data\MultiOptionsFieldData;
 use craft\helpers\Search as SearchHelper;
 use craft\helpers\UrlHelper;
+use Exception;
 use DateTime;
 use Smalot\PdfParser\Parser as PdfParser;
 use xorb\search\events\IndexAssetEvent;
@@ -156,7 +157,7 @@ class AssetResult
 
         try {
             $resultHash = hash_file('md5', $asset->getUrl());
-        } catch(\Exception $e) {
+        } catch(Exception $e) {
             $resultHash =  null;
         }
 
@@ -167,18 +168,26 @@ class AssetResult
             $resultElement->resultHash = $resultHash;
             $resultElement->dateResultModified = $dateTime;
 
+            $mainData = null;
+
             if ($asset->kind === 'pdf') {
-                $pdf = new PdfParser();
-                $pdf = $pdf->parseFile($asset->getUrl());
+                try {
+                    $pdf = new PdfParser();
+                    $pdf = $pdf->parseFile($asset->getUrl());
 
-                $mainData = $pdf->getText();
+                    $mainData = $pdf->getText();
 
-                $mainData = static::cleanMainData(
-                    $resultElement->siteId,
-                    $mainData
-                );
-            } else {
-                $mainData = null;
+                    $mainData = static::cleanMainData(
+                        $resultElement->siteId,
+                        $mainData
+                    );
+
+                    if ($mainData === '') {
+                        $mainData = null;
+                    }
+                } catch(Exception $e) {
+                    $mainData = null;
+                }
             }
 
             if (Event::hasHandlers(static::class, self::EVENT_UPDATE_MAIN_DATA)) {
