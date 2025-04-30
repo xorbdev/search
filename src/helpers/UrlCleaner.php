@@ -21,9 +21,15 @@ class UrlCleaner
         $plugin = Plugin::getInstance();
 
         $parts = parse_url($url);
-        $path = $parts['path'] ?? '';
-        $path = '/' . trim($path, '/');
-        parse_str($parts['query'] ?? '', $query);
+
+        if ($parts === false) {
+            $path = '/';
+            $query = [];
+        } else {
+            $path = $parts['path'] ?? '';
+            $path = '/' . trim($path, '/');
+            parse_str($parts['query'] ?? '', $query);
+        }
 
         $newQuery = [];
 
@@ -99,7 +105,7 @@ class UrlCleaner
         return $path . $query;
     }
 
-    public static function sortQuery(&$query): void
+    public static function sortQuery(array &$query): void
     {
         ksort($query);
 
