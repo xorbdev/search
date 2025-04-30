@@ -49,6 +49,10 @@ class UpdateResultsTask extends BaseTask
                     ->id($row['id'])
                     ->one();
 
+                if (!$resultElement) {
+                    continue;
+                }
+
                 if ($resultElement->resultType === 'page') {
                     PageResult::update($resultElement, null, $this->forceUpdatePages);
                 } else {
