@@ -673,7 +673,7 @@ class Result extends Element
         return [Craft::$app->getSites()->getPrimarySite()->id];
     }
 
-    protected static function defineSources(string $context = null): array
+    protected static function defineSources(string $context): array
     {
         $plugin = Plugin::getInstance();
 

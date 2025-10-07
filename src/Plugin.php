@@ -794,7 +794,7 @@ class Plugin extends \craft\base\Plugin
         return false;
     }
 
-    public static function t(string $message, array $params = [], string $language = null): string
+    public static function t(string $message, array $params = [], ?string $language = null): string
     {
         return Craft::t(self::HANDLE, $message, $params, $language);
     }

@@ -80,7 +80,7 @@ class SearchableField extends BaseOptionsField
             ]);
     }
 
-    protected function inputHtml(mixed $value, ?ElementInterface $element = null, bool $inline = false): string
+    protected function inputHtml(mixed $value, ?ElementInterface $element, bool $inline): string
     {
         if ($this->multiSite) {
             /** @var MultiOptionsFieldData $value */
@@ -114,7 +114,7 @@ class SearchableField extends BaseOptionsField
     /**
      * @inheritdoc
      */
-    public function getStaticHtml(mixed $value, ElementInterface $element = null): string
+    public function getStaticHtml(mixed $value, ElementInterface $element): string
     {
         if ($this->multiSite) {
             return Cp::selectizeHtml([
@@ -141,7 +141,7 @@ class SearchableField extends BaseOptionsField
         }
     }
 
-    public function normalizeValue(mixed $value, ?ElementInterface $element = null): mixed
+    public function normalizeValue(mixed $value, ?ElementInterface $element): mixed
     {
         if (!$this->multiSite && $value !== '' && $value !== [] && $value !== null) {
             $value = [strval($this->options[0]['value'])];

@@ -6,13 +6,8 @@ parameters:
     paths:
         - src
     ignoreErrors:
-        - '#Call to an undefined method yii\\web\\UrlManager::setRouteParams\(\)#'
         - '#Call to an undefined method yii\\web\\Response::selectedSubnavItem\(\).#'
         - '#Call to an undefined method DOMNode::getAttribute\(\).#'
-        -
-            message: "#Strict comparison using === between array and '' will always evaluate to false.#"
-            count: 1
-            path: src/elements/db/ResultQuery.php
         -
             message: "#Call to static method getInstance\\(\\) on an unknown class craft\\\\commerce\\\\Plugin.#"
             count: 1
