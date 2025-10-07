@@ -165,9 +165,16 @@ class PageResult
 
         $dateTime = new DateTime();
 
-        $resultElement->searchIgnore = false;
-        $resultElement->sitemapIgnore = false;
-        $resultElement->dateUnavailableAfter = null;
+        if (!$resultElement->rulesIgnore) {
+            $resultElement->searchIgnore = false;
+            $resultElement->dateUnavailableAfter = null;
+
+            if ($plugin->isPro() &&
+                $plugin->getSettings()->sitemapIgnoreRules
+            ) {
+                $resultElement->sitemapIgnore = false;
+            }
+        }
 
         if ($plugin->isPro() && $resultElement->id === null) {
             $resultElement->sitemapPriority = $plugin->getSettings()->sitemapDefaultPriority;
@@ -244,10 +251,6 @@ class PageResult
             $resultElement->dateUnavailableAfter = $robotsMetaTag->getUnavailableAfterDate();
         }
 
-        $resultElement->error = false;
-        $resultElement->errorCode = null;
-        $resultElement->dateError = null;
-
         $resultHash = md5($html);
 
         // Same content so nothing to change
@@ -258,6 +261,10 @@ class PageResult
 
             return static::$updatedPages[$key];
         }
+
+        $resultElement->error = false;
+        $resultElement->errorCode = null;
+        $resultElement->dateError = null;
 
         $resultElement->resultHash = $resultHash;
         $resultElement->dateResultModified = $dateTime;
@@ -301,6 +308,8 @@ class PageResult
             $resultElement->mainData = null;
             $resultElement->error = true;
             $resultElement->errorCode = null;
+            $resultElement->dateError = $dateTime;
+
             Craft::warning(
                 'Main element not found. (' . $url . ')',
                 Plugin::HANDLE
