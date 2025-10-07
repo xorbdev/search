@@ -140,7 +140,6 @@ class AddKnownPagesTask extends BaseTask
                 }
 
                 $this->addPage($siteId, $item);
-                return;
             }
 
             $totalCount -= $limit;
