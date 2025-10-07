@@ -1,5 +1,18 @@
 # Change Log
 
+## 1.1.2 - 2025-10-07
+
+### Updated
+
+- Updated to address deprecation issues in PHP 8.4.
+
+### Fixed
+
+- Fixed issue that would prevent all section entries from being indexed.
+- Fixed result search and sitemap switches getting improperly enabled after running utility update.
+- Fixed result error state getting improperly reset when running utility update.
+- Fixed result error date not always being set.
+
 ## 1.1.1 - 2025-04-30
 
 ### Fixed
