@@ -7,6 +7,8 @@ To get started, you can head to the utilities area of Craft CMS and update the
 index. This will queue a job that will add any known pages from your entries and
 products to your results index.
 
+!!!info In order for your pages to be properly indexed, the main content of your site needs to be placed inside a `<main>` tag. This is to prevent your main header, navigation, footer, etc. from being indexed on every page. !!!
+
 <img src="https://xorb.dev/content/utilities-update.png" alt="Search utilities update interface">
 
 If your site updates often or you plan on using hit tracking, you may want to
