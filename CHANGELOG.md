@@ -1,5 +1,11 @@
 # Change Log
 
+## 1.1.3 - 2025-10-08
+
+### Fixed
+
+- Fixed issue that could prevent assets from being indexed when multiple volumes are being used.
+
 ## 1.1.2 - 2025-10-07
 
 ### Updated
