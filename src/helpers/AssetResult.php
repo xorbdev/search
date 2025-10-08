@@ -249,6 +249,14 @@ class AssetResult
             return false;
         }
 
+        $fieldLayout = $asset->getFieldLayout();
+
+        if ($fieldLayout === null ||
+            $fieldLayout->getFieldByHandle($settings->searchableAssetFieldHandle) === null
+        ) {
+            return false;
+        }
+
         $value = $asset->getFieldValue($settings->searchableAssetFieldHandle);
 
         if ($value instanceof MultiOptionsFieldData) {
