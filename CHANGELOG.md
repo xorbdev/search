@@ -1,5 +1,15 @@
 # Change Log
 
+## 1.1.4 - 2025-10-09
+
+### Added
+
+- Added hit tracking event.
+
+### Fixed
+
+- Fixed issue where action urls with %2F would get tracked.
+
 ## 1.1.3 - 2025-10-08
 
 ### Fixed
