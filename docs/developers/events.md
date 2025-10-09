@@ -50,3 +50,26 @@ Event::on(
     }
 );
 ```
+
+### Filter Hit Tracking
+
+This event allows you modify or prevent URLs from being hit tracked.
+
+```php
+use xorb\search\events\TrackHitEvent;
+use xorb\search\services\Hits;
+use yii\base\Event;
+
+Event::on(
+    Hits::class,
+    Hits::EVENT_TRACK_HIT,
+    function(TrackHitEvent $event) {
+        // $event->url
+        // $event->trackHit
+
+        if ($this->doNotTrack($event->url)) {
+            $event->trackHit = false;
+        }
+    }
+);
+```

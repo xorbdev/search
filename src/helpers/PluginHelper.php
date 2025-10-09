@@ -62,6 +62,10 @@ class PluginHelper
             return false;
         }
 
+        if (Craft::$app->getRequest()->getIsActionRequest()) {
+            return false;
+        }
+
         if (Craft::$app->getRequest()->getUserAgent() === $settings->uaString) {
             return false;
         }
@@ -69,14 +73,6 @@ class PluginHelper
         $url = Craft::$app->getRequest()->getUrl();
 
         if ($url === '/robots.txt') {
-            return false;
-        }
-
-        if (str_starts_with($url, '/actions/')) {
-            return false;
-        }
-
-        if (str_contains($url, 'p=actions/')) {
             return false;
         }
 
