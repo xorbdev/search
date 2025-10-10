@@ -1,5 +1,11 @@
 # Change Log
 
+## 1.1.5 - 2025-10-09
+
+### Fixed
+
+- Fixed issue where only the first 250 pages or assets would get indexed.
+
 ## 1.1.4 - 2025-10-09
 
 ### Added
