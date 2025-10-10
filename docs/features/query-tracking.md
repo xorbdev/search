@@ -1,6 +1,7 @@
 # Query Tracking
 
-Enabling query tracking will allow you to see what your users are searching for
+Enabling query tracking will allow you to see what your users are searching for.
+
 This information can be used to make adjustments to your term maps and
 priorities or offer more detailed meta information for popular results.
 
