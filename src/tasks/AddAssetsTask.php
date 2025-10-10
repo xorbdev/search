@@ -65,6 +65,8 @@ class AddAssetsTask extends BaseTask
             if ($totalCount <= 0) {
                 break;
             }
+
+            ++$offset;
         }
     }
 

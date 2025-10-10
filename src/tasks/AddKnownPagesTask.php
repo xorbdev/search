@@ -146,6 +146,8 @@ class AddKnownPagesTask extends BaseTask
             if ($totalCount <= 0) {
                 break;
             }
+
+            ++$offset;
         }
     }
 
