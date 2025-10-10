@@ -1,5 +1,11 @@
 # Change Log
 
+## 1.1.6 - 2025-10-09
+
+### Fixed
+
+- Fixed typo in TrackHitEvent class name.
+
 ## 1.1.5 - 2025-10-09
 
 ### Fixed
