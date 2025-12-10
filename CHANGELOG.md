@@ -1,5 +1,11 @@
 # Change Log
 
+## 1.1.7 - 2025-12-10
+
+### Fixed
+
+- Fixed issue with result description parsing.
+
 ## 1.1.6 - 2025-10-09
 
 ### Fixed
