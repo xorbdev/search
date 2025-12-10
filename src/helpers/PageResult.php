@@ -381,7 +381,7 @@ class PageResult
             if ($data !== '') {
                 if (str_starts_with(strtolower($data), 'http/')) {
                     $parts = explode(' ', $data);
-                    $statusCode = intval($parts[1]);
+                    $statusCode = intval($parts[1] ?? 0);
                 } else {
                     $parts = explode(':', $data, 2);
                     $parts = array_map(trim(...), $parts);

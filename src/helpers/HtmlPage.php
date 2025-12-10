@@ -68,7 +68,7 @@ class HtmlPage
         return $this->metaTags->getMetaTag('title');
     }
 
-    public function getDescription(): ?string
+    public function getDescription($minLength = 75, $maxLength = 150): ?string
     {
         if ($this->main === null) {
             return null;
@@ -84,48 +84,92 @@ class HtmlPage
             return null;
         }
 
-        if (mb_strlen($paragraph) <= 150) {
+        if (mb_strlen($paragraph) <= $maxLength) {
             return $paragraph;
         }
 
-        $paragraph = mb_substr($paragraph, 0, 150);
+        // If the next character after the max length is whitespace, increase
+        // max length by 1
+        $lastCharacter = mb_substr($paragraph, $maxLength, 1);
 
-        preg_match_all(
-            '/\p{P}/u',
+        $count = preg_match_all(
+            '/[\s\p{Z}]/u',
+            $lastCharacter,
+            $matches,
+            PREG_OFFSET_CAPTURE
+        );
+
+        $endingSpace = '';
+        if ($count !== false && $count > 0) {
+            $endingSpace = ' ';
+            $maxLength += 1;
+        }
+
+        $paragraph = mb_substr($paragraph, 0, $maxLength);
+
+        // Match stop punctuation followed by optional close or final
+        // punctuation followed by a space
+        $count = preg_match_all(
+            '/[\.!?。！？…‥](?:[\p{Pe}\p{Pf}\'"]*)?(?=[\s　]|$)/u',
             $paragraph,
             $matches,
             PREG_OFFSET_CAPTURE
         );
 
-        // If matches are found
-        if (!isset($matches[0]) || !empty($matches[0])) {
-            preg_match_all(
-                '/\p{P}\p{S}\p{C}/u',
-                $paragraph,
-                $matches,
-                PREG_OFFSET_CAPTURE
-            );
-
-            if (!isset($matches[0]) || !empty($matches[0])) {
-                $lastPunctuation = '…';
-                $lastPosition = strlen($paragraph);
-            } else {
-                // Get the last match
-                $lastMatch = end($matches[0]);
-                $lastPunctuation = $lastMatch[0];
-                $lastPosition = $lastMatch[1];
-            }
-        } else {
-            // Get the last match
+        if ($count !== false && $count > 0) {
             $lastMatch = end($matches[0]);
             $lastPunctuation = $lastMatch[0];
             $lastPosition = $lastMatch[1];
+
+            if ($lastPosition > $minLength) {
+                return substr($paragraph, 0, $lastPosition) . $lastPunctuation;
+            }
         }
 
-        $paragraph = substr($paragraph, 0, $lastPosition) . $lastPunctuation;
+        // Match stop, close and final punctuation.
+        $count = preg_match_all(
+            '/[\.!?。！？…‥\p{Pe}\p{Pf}]/u',
+            $paragraph,
+            $matches,
+            PREG_OFFSET_CAPTURE
+        );
 
-        return $paragraph;
+        if ($count !== false && $count > 0) {
+            $lastMatch = end($matches[0]);
+            $lastPunctuation = $lastMatch[0];
+            $lastPosition = $lastMatch[1];
 
+            if ($lastPosition > $minLength) {
+                return substr($paragraph, 0, $lastPosition) . $lastPunctuation;
+            }
+        }
+
+        // Trim trailing open and initial punctuation
+        $paragraph = preg_replace(
+            '/[\s\p{Z}\p{Ps}\p{Pi}\'"]+$/u',
+            '',
+            $paragraph
+        ) . $endingSpace;
+
+        // Match whitespace
+        $count = preg_match_all(
+            '/[\s\p{Z}]/u',
+            $paragraph,
+            $matches,
+            PREG_OFFSET_CAPTURE
+        );
+
+        if ($count !== false && $count > 0) {
+            $lastMatch = end($matches[0]);
+            $lastPunctuation = '…';
+            $lastPosition = $lastMatch[1];
+
+            if ($lastPosition > $minLength) {
+                return substr($paragraph, 0, $lastPosition) . $lastPunctuation;
+            }
+        }
+
+        return $paragraph . '…';
     }
 
     public function getMetaDescription(): ?string
@@ -175,7 +219,7 @@ class HtmlPage
             }
         }
 
-        return implode(' ', $html);
+        return trim(implode(' ', $html));
     }
 
     protected static function parseElement(string $html, string $element): ?string
