@@ -2,6 +2,10 @@
 
 ## 1.1.8 - 2025-12-16
 
+### Fixed
+
+- Added null fallback for asset titles.
+
 ### Changed
 
 - Asset search data now includes title and alt text.

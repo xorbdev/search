@@ -148,7 +148,7 @@ class AssetResult
             $resultElement->sitemapIgnore = $plugin->getSettings()->sitemapIgnoreNewAssetUrls;
         }
 
-        $resultElement->resultTitle = $asset->title;
+        $resultElement->resultTitle = $asset->title ?? Plugin::t('Untitled');
         $resultElement->resultDescription = $asset->alt ?? null;
 
         $resultElement->error = false;
@@ -168,7 +168,7 @@ class AssetResult
             $resultElement->resultHash = $resultHash;
             $resultElement->dateResultModified = $dateTime;
 
-            $mainData = $asset->title;
+            $mainData = $asset->title ?? '';
 
             if ($asset->alt ?? null) {
                 $mainData .= ' ' . $asset->alt;
