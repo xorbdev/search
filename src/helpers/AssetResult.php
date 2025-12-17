@@ -168,26 +168,30 @@ class AssetResult
             $resultElement->resultHash = $resultHash;
             $resultElement->dateResultModified = $dateTime;
 
-            $mainData = null;
+            $mainData = $asset->title;
+
+            if ($asset->alt ?? null) {
+                $mainData .= ' ' . $asset->alt;
+            }
 
             if ($asset->kind === 'pdf') {
                 try {
                     $pdf = new PdfParser();
                     $pdf = $pdf->parseFile($asset->getUrl());
 
-                    $mainData = $pdf->getText();
-
-                    $mainData = static::cleanMainData(
-                        $resultElement->siteId,
-                        $mainData
-                    );
-
-                    if ($mainData === '') {
-                        $mainData = null;
-                    }
+                    $mainData .= ' ' . $pdf->getText();
                 } catch(Exception $e) {
-                    $mainData = null;
+                    // Do nothing
                 }
+            }
+
+            $mainData = static::cleanMainData(
+                $resultElement->siteId,
+                $mainData
+            );
+
+            if ($mainData === '') {
+                $mainData = null;
             }
 
             if (Event::hasHandlers(static::class, self::EVENT_UPDATE_MAIN_DATA)) {

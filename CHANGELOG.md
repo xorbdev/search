@@ -1,5 +1,11 @@
 # Change Log
 
+## 1.1.8 - 2025-12-16
+
+### Changed
+
+- Asset search data now includes title and alt text.
+
 ## 1.1.7 - 2025-12-10
 
 ### Fixed
