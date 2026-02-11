@@ -1,5 +1,16 @@
 # Change Log
 
+## 1.1.9 - 2026-02-11
+
+### Fixed
+
+- Fixed SearchQuery class adding an empty term when parsing in certain situations.
+- Fixed SearchQueryTerm class returning empty permutations in certain situations.
+
+### Changed
+
+- PDF parser will now use an assets file path instead of the its URL if using a Local Filesystem.
+
 ## 1.1.8 - 2025-12-16
 
 ### Fixed
