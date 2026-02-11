@@ -2,8 +2,10 @@
 namespace xorb\search\helpers;
 
 use Craft;
+use craft\base\LocalFsInterface;
 use craft\elements\Asset;
 use craft\fields\data\MultiOptionsFieldData;
+use craft\helpers\FileHelper;
 use craft\helpers\Search as SearchHelper;
 use craft\helpers\UrlHelper;
 use Exception;
@@ -14,6 +16,8 @@ use xorb\search\elements\Result as ResultElement;
 use xorb\search\Plugin;
 use yii\base\Event;
 use yii\base\InvalidArgumentException;
+
+use const DIRECTORY_SEPARATOR as DS;
 
 class AssetResult
 {
@@ -177,11 +181,31 @@ class AssetResult
             if ($asset->kind === 'pdf') {
                 try {
                     $pdf = new PdfParser();
-                    $pdf = $pdf->parseFile($asset->getUrl());
+
+                    $volume = $asset->getVolume();
+                    $fs = $volume->getFs();
+
+                    if ($fs instanceof LocalFsInterface) {
+                        $file = FileHelper::normalizePath(
+                            $fs->getRootPath() . DS .
+                            $volume->getSubpath() .
+                            $asset->getPath()
+                        );
+
+                        $pdf = $pdf->parseFile($file);
+                    } else {
+                        $url = $asset->getUrl();
+
+                        if (str_starts_with($url, '/')) {
+                            $url = UrlHelper::siteUrl($url);
+                        }
+
+                        $pdf = $pdf->parseFile($url);
+                    }
 
                     $mainData .= ' ' . $pdf->getText();
                 } catch(Exception $e) {
-                    // Do nothing
+                    Craft::error($e->getMessage(), __METHOD__);
                 }
             }
 
