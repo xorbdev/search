@@ -174,6 +174,8 @@ readonly class SearchQueryTerm
 
     private function cleanPermutations(array $permutations): array
     {
+        $cleanPermutations = [];
+
         foreach ($permutations as $key => $value) {
             foreach ($value as $key2 => $value2) {
                 if (str_contains($value2, ' ')) {
@@ -185,10 +187,12 @@ readonly class SearchQueryTerm
                 }
             }
 
-            $permutations[$key] = $value;
+            if ($value) {
+                $cleanPermutations[] = $value;
+            }
         }
 
-        return $permutations;
+        return $cleanPermutations;
     }
 
     public function getNormalizedTerm(?int $siteId = null): string
