@@ -114,6 +114,7 @@ class SearchQuery
                         term: implode(' ', $currentTokens),
                         exclude: $isExclude,
                         phrase: true,
+
                         minKeywordLength: $this->minKeywordLength,
                     );
 
@@ -204,14 +205,14 @@ class SearchQuery
                 phrase: true,
                 minKeywordLength: $this->minKeywordLength,
             );
-        } elseif ($inGroup) {
+        } elseif ($inGroup && $currentTokens) {
             $terms[] = $this->getGroupTerm($currentTokens);
         }
 
         return $terms;
     }
 
-    private function getGroupTerm(array $tokens)
+    private function getGroupTerm(array $tokens): SearchQueryTerm
     {
         if (count($tokens) === 1) {
             return new SearchQueryTerm(
