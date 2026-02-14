@@ -54,9 +54,9 @@ class PageResult
 
         $resultElement = self::getResultElement($siteId, $element, $url);
 
-        // If null then an existing asset.
+        // If null then an existing page.
         if ($resultElement === null) {
-            return false;
+            return true;
         }
 
         return static::update($resultElement, $element, true);
