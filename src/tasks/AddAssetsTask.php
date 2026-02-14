@@ -25,6 +25,7 @@ class AddAssetsTask extends BaseTask
         /** @var AssetQuery **/
         $assetQuery = Asset::instance()::find();
         $assetQuery->siteId = $siteId;
+        $assetQuery->orderBy(['id' => SORT_ASC]);
 
         $totalCount = $assetQuery->count();
 
@@ -43,15 +44,9 @@ class AddAssetsTask extends BaseTask
         int $totalCount,
     ): void
     {
-        $limit = 250;
-        $offset = 0;
-
-        while (true) {
-            $assetQuery->limit = $limit;
-            $assetQuery->offset = $offset * $limit;
-
+        foreach ($assetQuery->batch(100) as $batch) {
             /** @var Asset **/
-		    foreach ($assetQuery->all() as $item) {
+            foreach ($batch as $item) {
                 $url = $item->getUrl();
 
                 if ($url === null) {
@@ -60,13 +55,6 @@ class AddAssetsTask extends BaseTask
 
                 $this->addAsset($siteId, $item);
             }
-
-            $totalCount -= $limit;
-            if ($totalCount <= 0) {
-                break;
-            }
-
-            ++$offset;
         }
     }
 

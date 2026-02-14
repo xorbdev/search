@@ -45,6 +45,7 @@ class AddKnownPagesTask extends BaseTask
             $elementQuery = Entry::find();
             $elementQuery->sectionId = $item['id'];
             $elementQuery->siteId = $siteId;
+            $elementQuery->orderBy(['id' => SORT_ASC]);
 
             $totalCount = $elementQuery->count();
 
@@ -65,6 +66,7 @@ class AddKnownPagesTask extends BaseTask
             $elementQuery = Category::find();
             $elementQuery->groupId = $item['id'];
             $elementQuery->siteId = $siteId;
+            $elementQuery->orderBy(['id' => SORT_ASC]);
 
             $totalCount = $elementQuery->count();
 
@@ -91,6 +93,7 @@ class AddKnownPagesTask extends BaseTask
             $elementQuery = Product::find();
             $elementQuery->typeId = $item['id'];
             $elementQuery->siteId = $siteId;
+            $elementQuery->orderBy(['id' => SORT_ASC]);
 
             $totalCount = $elementQuery->count();
 
@@ -124,15 +127,9 @@ class AddKnownPagesTask extends BaseTask
         int $totalCount,
     ): void
     {
-        $limit = 250;
-        $offset = 0;
-
-        while (true) {
-            $elementQuery->limit = $limit;
-            $elementQuery->offset = $offset * $limit;
-
+        foreach ($elementQuery->batch(100) as $batch) {
             /** @var Element $item **/
-		    foreach ($elementQuery->all() as $item) {
+            foreach ($batch as $item) {
                 $url = $item->getUrl();
 
                 if ($url === null) {
@@ -141,13 +138,6 @@ class AddKnownPagesTask extends BaseTask
 
                 $this->addPage($siteId, $item);
             }
-
-            $totalCount -= $limit;
-            if ($totalCount <= 0) {
-                break;
-            }
-
-            ++$offset;
         }
     }
 

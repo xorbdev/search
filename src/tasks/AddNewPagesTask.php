@@ -48,7 +48,8 @@ class AddNewPagesTask extends BaseTask
                 'url',
             ])
             ->from(Table::HITS)
-            ->where($where);
+            ->where($where)
+            ->orderBy(['id' => SORT_ASC]);
 
         $batch = $query->batch(500);
 
