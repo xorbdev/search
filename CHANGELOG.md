@@ -1,5 +1,11 @@
 # Change Log
 
+## 1.2.0 - 2026-02-14
+
+### Added
+
+- Added 'Make Assets Searchable' utility to bulk set assets as searchable.
+
 ## 1.1.9 - 2026-02-11
 
 ### Fixed
