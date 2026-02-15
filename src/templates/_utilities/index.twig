@@ -30,7 +30,6 @@
 
     <div class="buttons">
         <button type="submit" class="btn submit">{{ 'Update Index'|t('xsearch') }}</button>
-        <div class="utility-status"></div>
     </div>
 </form>
 
@@ -50,6 +49,61 @@
 
     <div class="buttons">
         <button type="submit" class="btn submit">{{ 'Add URI'|t('xsearch') }}</button>
-        <div class="utility-status"></div>
+    </div>
+</form>
+
+<hr>
+
+<h2>{{ 'Make Assets Searchable'|t('xsearch') }}</h2>
+
+<form class="utility" method="post" accept-charset="UTF-8">
+    {{ actionInput('xsearch/utilities/make-assets-searchable') }}
+    {{ csrfInput() }}
+
+    {% if siteOptions|length == 1 %}
+        <p>{{ 'This will toggle searchable on for all assets that match the following criteria:'|t('xsearch') }}</p>
+    {% else %}
+        <p>{{ 'This will enable searchable for all assets that match the following criteria:'|t('xsearch') }}</p>
+
+        {{ forms.checkboxSelectField({
+            label: 'Sites'|t('app'),
+            name: 'sites',
+            options: siteOptions,
+            showAllOption: true,
+            values: '*',
+            instructions: 'Which sites the asset should be searchable on.'|t('xsearch'),
+        }) }}
+    {% endif %}
+
+    {{ forms.checkboxSelectField({
+        label: 'Volumes'|t('app'),
+        name: 'volumes',
+        options: volumeOptions,
+        showAllOption: true,
+        values: '*',
+    }) }}
+
+    {{ forms.lightswitchField({
+        label: 'Restrict allowed file types'|t('app'),
+        class: 'restrictFiles',
+        id: 'restrictFiles',
+        name: 'restrictFiles',
+        value: 1,
+        toggle: 'restrict-file-kinds',
+    }) }}
+
+    <fieldset id="restrict-file-kinds" class="hidden indent">
+        {% for option in fileKindOptions %}
+            {{ forms.checkboxField({
+                label: option.label,
+                id: 'allowedKinds-'~option.value,
+                name: 'fileKinds[]',
+                value: option.value,
+            }) }}
+        {% endfor %}
+    </fieldset>
+
+    <div class="buttons">
+        <button type="submit" class="btn submit">{{ 'Make Searchable'|t('xsearch') }}</button>
     </div>
 </form>
