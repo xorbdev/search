@@ -1,5 +1,9 @@
 # Change Log
 
+## 1.2.2 - 2026-06-30
+
+- Fixed missing semicolon.
+
 ## 1.2.1 - 2026-06-30
 
 ### Added
