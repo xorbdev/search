@@ -43,7 +43,7 @@ class HtmlPage
             return $title;
         }
 
-        $name = $this->site->getName();
+        $name = $this->site->getName(true);
 
         if (StringHelper::endsWith(
             string: $title,

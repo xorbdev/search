@@ -33,6 +33,11 @@ class PluginHelper
             $baseUrl === '' ||
             str_contains($baseUrl, '@web')
         ) {
+            if (str_contains($baseUrl, '@web')) {
+                Craft::warning('Site Base URL contains @web and is not supported. (' . $site->getName(true). ')', __METHOD__);
+            } else {
+                Craft::warning('Site Base URL is empty. (' . $site->getName(true). ')', __METHOD__);
+            }
             return false;
         }
 

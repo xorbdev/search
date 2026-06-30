@@ -1,5 +1,22 @@
 # Change Log
 
+## 1.2.1 - 2026-06-30
+
+### Added
+
+- Added some additional logging.
+
+### Fixed
+
+- 'Make Assets Searchable' utility is now hidden for Lite version.
+- Fixed site name not parsing environmental variables when getting page title.
+- Fixed SearchQuery parsing issues with words that end in an apostrophe.
+- Fixed searching for partial words not matching full words.
+
+### Changed
+
+- craft.xsearch.results now accepts null.
+
 ## 1.2.0 - 2026-02-14
 
 ### Added

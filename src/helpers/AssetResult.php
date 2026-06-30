@@ -197,7 +197,7 @@ class AssetResult
                         $url = $asset->getUrl();
 
                         if (str_starts_with($url, '/')) {
-                            $url = UrlHelper::siteUrl($url);
+                            $url = rtrim($site->getBaseUrl(), '/') . $url
                         }
 
                         $pdf = $pdf->parseFile($url);

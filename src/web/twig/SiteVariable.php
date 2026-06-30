@@ -9,13 +9,13 @@ use xorb\search\elements\db\ResultQuery;
 
 class SiteVariable extends BaseVariable
 {
-    public function results(string|array $criteria = []): ResultQuery
+    public function results(null|string|array $criteria = []): ResultQuery
     {
         $query = ResultElement::find()
             ->searchMode(true)
             ->siteId(Craft::$app->getSites()->getCurrentSite()->id);
 
-        if ($criteria) {
+        if ($criteria !== null && $criteria !== '') {
             if (is_string($criteria)) {
                 $criteria = [
                     'searchQuery' => $criteria,

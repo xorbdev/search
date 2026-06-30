@@ -602,9 +602,11 @@ class ResultQuery extends ElementQuery
 
         if ($isMysql) {
             $terms = array_map(
-                function($value) {
+                function($value) use($exclude) {
                     if (str_contains($value, ' ')) {
                         $value = '"' . $value . '"';
+                    } elseif (!$exclude) {
+                        $value .= '*';
                     }
 
                     return $value;
@@ -628,9 +630,11 @@ class ResultQuery extends ElementQuery
         }
 
         $terms = array_map(
-            function($value) {
+            function($value) use($exclude) {
                 if (str_contains($value, ' ')) {
                     $value = "''" . $value . "''";
+                } elseif (!$exclude) {
+                    $value .= ':*';
                 }
 
                 return $value;
